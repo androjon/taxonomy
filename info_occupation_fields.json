@@ -1,0 +1,1332 @@
+{
+  "data": {
+    "concepts": [
+      {
+        "preferred_label": "Administration, ekonomi, juridik", 
+        "id": "X82t_awd_Qyc", 
+        "narrower": [
+          {
+            "id": "k1Nx_auG_sNh"
+          }, 
+          {
+            "id": "q81z_3oD_1qu"
+          }, 
+          {
+            "id": "H2Zj_eL9_x28"
+          }, 
+          {
+            "id": "sXgV_QFg_vpb"
+          }, 
+          {
+            "id": "JAFv_ZaP_tDG"
+          }, 
+          {
+            "id": "FfMN_Bw1_qYR"
+          }, 
+          {
+            "id": "ByrL_ANp_UwV"
+          }, 
+          {
+            "id": "DZVN_v5g_Fco"
+          }, 
+          {
+            "id": "vPP6_rsw_dck"
+          }, 
+          {
+            "id": "4W6S_1kA_nrv"
+          }, 
+          {
+            "id": "br6a_VVS_V3y"
+          }, 
+          {
+            "id": "Qo7p_wjf_gtv"
+          }, 
+          {
+            "id": "zKvJ_GnC_Szx"
+          }, 
+          {
+            "id": "vCAb_uuo_ek5"
+          }, 
+          {
+            "id": "fsnw_ZCu_v2U"
+          }, 
+          {
+            "id": "L7eh_ihX_vM5"
+          }, 
+          {
+            "id": "eQ4M_CNm_ozj"
+          }, 
+          {
+            "id": "qsJJ_EYo_fzA"
+          }, 
+          {
+            "id": "JfYV_ZGg_6rm"
+          }, 
+          {
+            "id": "bjqk_F3A_5Hk"
+          }, 
+          {
+            "id": "Y6yY_SuR_hVh"
+          }, 
+          {
+            "id": "jv1x_tpK_32p"
+          }, 
+          {
+            "id": "WZCM_nfS_eAk"
+          }, 
+          {
+            "id": "ij8k_EwC_zyB"
+          }, 
+          {
+            "id": "pTr9_RBT_9ur"
+          }, 
+          {
+            "id": "cRmd_536_pT1"
+          }, 
+          {
+            "id": "Ru4W_zn2_LEz"
+          }, 
+          {
+            "id": "6aak_8eh_iwT"
+          }, 
+          {
+            "id": "aQpg_E2T_cWq"
+          }, 
+          {
+            "id": "Uw4n_UB2_RCW"
+          }, 
+          {
+            "id": "q8wL_kdi_WaW"
+          }, 
+          {
+            "id": "ZQTR_hVC_QhJ"
+          }, 
+          {
+            "id": "GMDo_DVo_Yzh"
+          }, 
+          {
+            "id": "4aPu_2nd_8X6"
+          }, 
+          {
+            "id": "Bbkh_nrm_2J8"
+          }, 
+          {
+            "id": "ZQiZ_6Kd_D3a"
+          }, 
+          {
+            "id": "oEmP_NC1_sXE"
+          }, 
+          {
+            "id": "TQkt_eeK_eNp"
+          }, 
+          {
+            "id": "pwRH_MT1_8nR"
+          }, 
+          {
+            "id": "9dLz_BCK_oDA"
+          }, 
+          {
+            "id": "MGk3_LvL_AU2"
+          }, 
+          {
+            "id": "2kLc_pto_DpV"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Bygg och anläggning", 
+        "id": "j7Cq_ZJe_GkT", 
+        "narrower": [
+          {
+            "id": "iHrC_aRv_fVm"
+          }, 
+          {
+            "id": "3ZtN_hhA_SM7"
+          }, 
+          {
+            "id": "bZ4J_riZ_zK6"
+          }, 
+          {
+            "id": "AD3U_cFH_rbe"
+          }, 
+          {
+            "id": "XeBP_nMe_pXx"
+          }, 
+          {
+            "id": "thZP_oR7_WrY"
+          }, 
+          {
+            "id": "3UzE_P8A_9sS"
+          }, 
+          {
+            "id": "9mJN_VwW_Xjg"
+          }, 
+          {
+            "id": "NnB3_eWH_auo"
+          }, 
+          {
+            "id": "q2Ge_zrQ_zJb"
+          }, 
+          {
+            "id": "7zKm_4NW_eey"
+          }, 
+          {
+            "id": "3g5x_Tm7_8QH"
+          }, 
+          {
+            "id": "w6ud_quG_dgh"
+          }, 
+          {
+            "id": "Y4j1_P17_wVA"
+          }, 
+          {
+            "id": "QKvX_v7r_PNL"
+          }, 
+          {
+            "id": "f71c_gjL_RDq"
+          }, 
+          {
+            "id": "bXfo_4hb_SXx"
+          }, 
+          {
+            "id": "XYzP_5Tn_7Ep"
+          }, 
+          {
+            "id": "cGxX_R9c_kW1"
+          }, 
+          {
+            "id": "fLKb_bJ3_69p"
+          }, 
+          {
+            "id": "V79C_DD2_3Gj"
+          }, 
+          {
+            "id": "DPPw_4wa_AsH"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Data/IT", 
+        "id": "apaJ_2ja_LuF", 
+        "narrower": [
+          {
+            "id": "Fv7d_YhP_YmS"
+          }, 
+          {
+            "id": "cBBa_ngH_fCx"
+          }, 
+          {
+            "id": "13md_uyV_BNG"
+          }, 
+          {
+            "id": "DJh5_yyF_hEM"
+          }, 
+          {
+            "id": "UXKZ_3zZ_ipB"
+          }, 
+          {
+            "id": "D9SL_mtn_vGM"
+          }, 
+          {
+            "id": "VCpu_5EN_bBt"
+          }, 
+          {
+            "id": "hmaC_cfi_UKg"
+          }, 
+          {
+            "id": "UxT1_tPF_Kbg"
+          }, 
+          {
+            "id": "Q5DF_juj_8do"
+          }, 
+          {
+            "id": "BAeH_eg8_T2d"
+          }, 
+          {
+            "id": "MYAz_x9m_2LJ"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Kropps- och skönhetsvård", 
+        "id": "Uuf1_GMh_Uvw", 
+        "narrower": [
+          {
+            "id": "LyBp_bY6_bZK"
+          }, 
+          {
+            "id": "HATH_AfN_RRz"
+          }, 
+          {
+            "id": "xr7w_N6Q_QMA"
+          }, 
+          {
+            "id": "ezKk_kss_CiQ"
+          }, 
+          {
+            "id": "uxHV_KXc_PKD"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Försäljning, inköp, marknadsföring", 
+        "id": "RPTn_bxG_ExZ", 
+        "narrower": [
+          {
+            "id": "YKL2_FCB_1yr"
+          }, 
+          {
+            "id": "JnTF_wXr_6Eh"
+          }, 
+          {
+            "id": "M47D_MU2_dhS"
+          }, 
+          {
+            "id": "NCeZ_rSk_B4D"
+          }, 
+          {
+            "id": "AuTi_FEo_j3R"
+          }, 
+          {
+            "id": "8A1f_sxQ_adT"
+          }, 
+          {
+            "id": "41Az_ioZ_rmH"
+          }, 
+          {
+            "id": "WX67_Pfb_WMN"
+          }, 
+          {
+            "id": "A6X3_efC_VNy"
+          }, 
+          {
+            "id": "Fp7x_Yqt_bx9"
+          }, 
+          {
+            "id": "PxXc_16t_oZo"
+          }, 
+          {
+            "id": "p16X_44f_rwZ"
+          }, 
+          {
+            "id": "48KE_fDE_ryL"
+          }, 
+          {
+            "id": "85cq_6uK_4cK"
+          }, 
+          {
+            "id": "WNVp_RYe_zLX"
+          }, 
+          {
+            "id": "83wV_GJa_vMd"
+          }, 
+          {
+            "id": "fdLf_oPp_wVw"
+          }, 
+          {
+            "id": "dUuh_wwa_FGj"
+          }, 
+          {
+            "id": "oXSW_fbY_XrY"
+          }, 
+          {
+            "id": "xyW2_toA_Skh"
+          }, 
+          {
+            "id": "s1Qk_o98_2o1"
+          }, 
+          {
+            "id": "iWcY_mko_rq2"
+          }, 
+          {
+            "id": "AQrL_tTu_Wbg"
+          }, 
+          {
+            "id": "Fghp_zje_WA8"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Hantverk", 
+        "id": "PaxQ_o1G_wWH", 
+        "narrower": [
+          {
+            "id": "vJQk_YvC_XB7"
+          }, 
+          {
+            "id": "UZBj_yDX_Ctp"
+          }, 
+          {
+            "id": "mwVN_oEH_g9k"
+          }, 
+          {
+            "id": "q8Ho_3Xw_sHq"
+          }, 
+          {
+            "id": "1Nwn_GYH_wkH"
+          }, 
+          {
+            "id": "v7W3_cLQ_q2S"
+          }, 
+          {
+            "id": "nwSm_phw_sPo"
+          }, 
+          {
+            "id": "vhUJ_LyD_XWc"
+          }, 
+          {
+            "id": "5qT8_z9d_8rw"
+          }, 
+          {
+            "id": "e6nk_AGp_y28"
+          }, 
+          {
+            "id": "aKdV_u7V_R5j"
+          }, 
+          {
+            "id": "J17g_Q2a_2u1"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Hotell, restaurang, storhushåll", 
+        "id": "ScKy_FHB_7wT", 
+        "narrower": [
+          {
+            "id": "h324_DPT_7Tw"
+          }, 
+          {
+            "id": "UjoW_meY_Zwt"
+          }, 
+          {
+            "id": "XFXX_Jq9_Y2a"
+          }, 
+          {
+            "id": "bYde_Frc_xcB"
+          }, 
+          {
+            "id": "tPox_ie4_X9X"
+          }, 
+          {
+            "id": "1wqU_Jhj_amb"
+          }, 
+          {
+            "id": "BStc_SJh_DKG"
+          }, 
+          {
+            "id": "YHwG_fk2_MDL"
+          }, 
+          {
+            "id": "XGyi_i4B_ME7"
+          }, 
+          {
+            "id": "a8gg_ktU_w8V"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Hälso- och sjukvård", 
+        "id": "NYW6_mP6_vwf", 
+        "narrower": [
+          {
+            "id": "kHgb_AHf_vrY"
+          }, 
+          {
+            "id": "Bywn_Doc_3VF"
+          }, 
+          {
+            "id": "Z8ci_bBE_tmx"
+          }, 
+          {
+            "id": "jY19_knH_MJp"
+          }, 
+          {
+            "id": "PHJN_fva_yxs"
+          }, 
+          {
+            "id": "F19Z_oB6_pg3"
+          }, 
+          {
+            "id": "TMsM_oNw_j6z"
+          }, 
+          {
+            "id": "3H17_ZZr_BEc"
+          }, 
+          {
+            "id": "XjcN_5LT_bWx"
+          }, 
+          {
+            "id": "5dxv_nVQ_N8o"
+          }, 
+          {
+            "id": "GiNX_ESA_AL1"
+          }, 
+          {
+            "id": "1tGC_fXC_mxX"
+          }, 
+          {
+            "id": "nu7c_QuB_KVQ"
+          }, 
+          {
+            "id": "oj4c_P4b_cja"
+          }, 
+          {
+            "id": "VYeq_GDF_a2g"
+          }, 
+          {
+            "id": "tAJS_JNb_hDH"
+          }, 
+          {
+            "id": "WL4E_r4b_ek4"
+          }, 
+          {
+            "id": "4F9o_Jzv_Pwz"
+          }, 
+          {
+            "id": "8q1B_5AR_CEM"
+          }, 
+          {
+            "id": "pzch_NRY_9ZF"
+          }, 
+          {
+            "id": "6Fu3_qQA_9DK"
+          }, 
+          {
+            "id": "bEDv_SL7_VrL"
+          }, 
+          {
+            "id": "dyWo_sDb_MLQ"
+          }, 
+          {
+            "id": "HPxT_fQJ_zwT"
+          }, 
+          {
+            "id": "PUhV_DVQ_MM6"
+          }, 
+          {
+            "id": "TPH4_2AM_isT"
+          }, 
+          {
+            "id": "LP4Z_ABV_gRm"
+          }, 
+          {
+            "id": "7fNG_sve_JWU"
+          }, 
+          {
+            "id": "aWki_4uA_adn"
+          }, 
+          {
+            "id": "s7vU_FhY_L5Z"
+          }, 
+          {
+            "id": "NFUg_y9y_1TY"
+          }, 
+          {
+            "id": "UUQi_UJ5_MSb"
+          }, 
+          {
+            "id": "6zAR_EHM_Kwj"
+          }, 
+          {
+            "id": "gXqW_s5Q_ZjN"
+          }, 
+          {
+            "id": "6eAB_cbY_i9T"
+          }, 
+          {
+            "id": "nrVt_xUL_KdQ"
+          }, 
+          {
+            "id": "ek9W_qqp_XpF"
+          }, 
+          {
+            "id": "Pq5C_SPC_bRA"
+          }, 
+          {
+            "id": "7XXd_4St_nit"
+          }, 
+          {
+            "id": "seu9_VoQ_VNo"
+          }, 
+          {
+            "id": "vTgW_pnr_QMp"
+          }, 
+          {
+            "id": "cuaN_Rj5_YCc"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Industriell tillverkning", 
+        "id": "wTEr_CBC_bqh", 
+        "narrower": [
+          {
+            "id": "YiQw_N87_zLU"
+          }, 
+          {
+            "id": "SgAJ_DW2_FN5"
+          }, 
+          {
+            "id": "gJtZ_EBc_n2z"
+          }, 
+          {
+            "id": "icae_Y69_H8E"
+          }, 
+          {
+            "id": "LEvM_7Hs_w8i"
+          }, 
+          {
+            "id": "vaEp_iBS_c5h"
+          }, 
+          {
+            "id": "dAu7_VyL_hsy"
+          }, 
+          {
+            "id": "mPzg_93F_QEv"
+          }, 
+          {
+            "id": "UdrS_qzV_P7i"
+          }, 
+          {
+            "id": "dKUb_KBP_mw3"
+          }, 
+          {
+            "id": "aU9p_ekE_Fqf"
+          }, 
+          {
+            "id": "Kxm9_N3V_shF"
+          }, 
+          {
+            "id": "4bxV_58E_P9N"
+          }, 
+          {
+            "id": "vCBT_Pnd_8UB"
+          }, 
+          {
+            "id": "MSnK_3Z8_4qA"
+          }, 
+          {
+            "id": "8ddv_P8e_iYz"
+          }, 
+          {
+            "id": "ENV6_BNa_brP"
+          }, 
+          {
+            "id": "m8TS_hdk_pSf"
+          }, 
+          {
+            "id": "QqHf_XKZ_eyy"
+          }, 
+          {
+            "id": "VKKg_e4t_t46"
+          }, 
+          {
+            "id": "o31g_CX1_qhQ"
+          }, 
+          {
+            "id": "Vfum_e6B_7Bw"
+          }, 
+          {
+            "id": "iZLB_KpD_LLo"
+          }, 
+          {
+            "id": "J9Vz_JxJ_Bji"
+          }, 
+          {
+            "id": "4DET_dLf_iB9"
+          }, 
+          {
+            "id": "UcNa_inr_snV"
+          }, 
+          {
+            "id": "L4hA_SJP_SFi"
+          }, 
+          {
+            "id": "XeJB_bkn_mRn"
+          }, 
+          {
+            "id": "skLS_kpa_Ui1"
+          }, 
+          {
+            "id": "HXzD_qvt_HV6"
+          }, 
+          {
+            "id": "DxiF_hTo_b3X"
+          }, 
+          {
+            "id": "sX9n_CWa_KVC"
+          }, 
+          {
+            "id": "4obu_LL6_RqJ"
+          }, 
+          {
+            "id": "rxmK_wwM_1NA"
+          }, 
+          {
+            "id": "kF59_fge_kts"
+          }, 
+          {
+            "id": "AUs8_M5f_dLt"
+          }, 
+          {
+            "id": "1G6H_AuG_qyy"
+          }, 
+          {
+            "id": "yJk6_azD_ywF"
+          }, 
+          {
+            "id": "TrwQ_RXT_W8a"
+          }, 
+          {
+            "id": "shkw_ojo_UL2"
+          }, 
+          {
+            "id": "hxm6_xkr_dHm"
+          }, 
+          {
+            "id": "yPQ4_EaN_Dtj"
+          }, 
+          {
+            "id": "LeQV_umf_wUS"
+          }, 
+          {
+            "id": "dMVD_VYy_kgg"
+          }, 
+          {
+            "id": "wQ1E_Bzk_ZyA"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Installation, drift, underhåll", 
+        "id": "yhCP_AqT_tns", 
+        "narrower": [
+          {
+            "id": "7Zqy_hSM_Fig"
+          }, 
+          {
+            "id": "yyF7_jsW_EeP"
+          }, 
+          {
+            "id": "E87t_egE_pjA"
+          }, 
+          {
+            "id": "KttZ_Skc_bMR"
+          }, 
+          {
+            "id": "a75S_eLg_JWH"
+          }, 
+          {
+            "id": "Lzpv_ofL_3H5"
+          }, 
+          {
+            "id": "QEBd_qHu_vGr"
+          }, 
+          {
+            "id": "fWrt_sLg_koW"
+          }, 
+          {
+            "id": "MW1P_GNJ_4F9"
+          }, 
+          {
+            "id": "ieVp_d5L_rS9"
+          }, 
+          {
+            "id": "9DdK_AZY_ZNK"
+          }, 
+          {
+            "id": "iGTu_bYL_2T7"
+          }, 
+          {
+            "id": "Cppd_9P7_HeR"
+          }, 
+          {
+            "id": "df9D_e6y_61z"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Kultur, media, design", 
+        "id": "9puE_nYg_crq", 
+        "narrower": [
+          {
+            "id": "zfve_s6G_tpc"
+          }, 
+          {
+            "id": "iBUL_s38_izZ"
+          }, 
+          {
+            "id": "SgNH_hag_n9D"
+          }, 
+          {
+            "id": "rYSG_3WJ_LmC"
+          }, 
+          {
+            "id": "CkRH_4Qn_iX3"
+          }, 
+          {
+            "id": "CSUf_ZVM_a7Z"
+          }, 
+          {
+            "id": "PF4H_kQD_zpL"
+          }, 
+          {
+            "id": "AWJF_wqZ_va9"
+          }, 
+          {
+            "id": "DqLe_pH6_jyj"
+          }, 
+          {
+            "id": "Mbt6_3ko_DiD"
+          }, 
+          {
+            "id": "wVfo_Njx_1rB"
+          }, 
+          {
+            "id": "gmRr_7tt_eHj"
+          }, 
+          {
+            "id": "xuSE_mtB_Mir"
+          }, 
+          {
+            "id": "4BsK_q2C_sCL"
+          }, 
+          {
+            "id": "PQDm_Z63_zst"
+          }, 
+          {
+            "id": "PH2M_uV4_r72"
+          }, 
+          {
+            "id": "3J38_DNz_YKK"
+          }, 
+          {
+            "id": "8Bmh_vtM_zts"
+          }, 
+          {
+            "id": "34Tn_BQQ_tfo"
+          }, 
+          {
+            "id": "Qbvf_6nd_Esn"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Sanering och renhållning", 
+        "id": "whao_Q6A_ScE", 
+        "narrower": [
+          {
+            "id": "idjo_2Wr_a3E"
+          }, 
+          {
+            "id": "FtyZ_Joo_tB8"
+          }, 
+          {
+            "id": "FjdF_H2e_tAG"
+          }, 
+          {
+            "id": "o1gn_FoS_fB7"
+          }, 
+          {
+            "id": "SUfj_4D9_FNx"
+          }, 
+          {
+            "id": "Z6TY_xDf_Yup"
+          }, 
+          {
+            "id": "X7HR_rZK_4wj"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Naturbruk", 
+        "id": "VuuL_7CH_adj", 
+        "narrower": [
+          {
+            "id": "KYmy_iqC_xiQ"
+          }, 
+          {
+            "id": "c8r8_e4L_gwj"
+          }, 
+          {
+            "id": "1EBv_UzM_ozQ"
+          }, 
+          {
+            "id": "k3R3_UkC_nK2"
+          }, 
+          {
+            "id": "qouP_wtb_93q"
+          }, 
+          {
+            "id": "KwVo_sQu_G2e"
+          }, 
+          {
+            "id": "3LdB_WEJ_8Ms"
+          }, 
+          {
+            "id": "Lm3Z_gek_GYc"
+          }, 
+          {
+            "id": "XurM_DVs_ggn"
+          }, 
+          {
+            "id": "RYCQ_ogb_uUY"
+          }, 
+          {
+            "id": "XBh3_Xrm_C4R"
+          }, 
+          {
+            "id": "2xQ4_4kh_kTZ"
+          }, 
+          {
+            "id": "MSzH_F2n_Emb"
+          }, 
+          {
+            "id": "Lrsj_wRZ_sFV"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Naturvetenskap", 
+        "id": "kJeN_wmw_9wX", 
+        "narrower": [
+          {
+            "id": "Z2MZ_eYc_Lfv"
+          }, 
+          {
+            "id": "puim_6PY_DGj"
+          }, 
+          {
+            "id": "eofS_oZs_RZi"
+          }, 
+          {
+            "id": "e9FK_VKh_ahW"
+          }, 
+          {
+            "id": "wNrt_Ysj_WuT"
+          }, 
+          {
+            "id": "dsK3_hkt_zGy"
+          }, 
+          {
+            "id": "KM7d_Z6Y_LCJ"
+          }, 
+          {
+            "id": "ZA1N_Z2B_nFQ"
+          }, 
+          {
+            "id": "LP8B_auW_wMp"
+          }, 
+          {
+            "id": "V7Yz_4WV_g4z"
+          }, 
+          {
+            "id": "rE1E_m3d_cx1"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Pedagogik", 
+        "id": "MVqp_eS8_kDZ", 
+        "narrower": [
+          {
+            "id": "RPBE_x5M_cXX"
+          }, 
+          {
+            "id": "4KhP_FxL_uZ5"
+          }, 
+          {
+            "id": "EA6o_N1N_QtT"
+          }, 
+          {
+            "id": "Gm5j_S2Y_aTB"
+          }, 
+          {
+            "id": "Hi9c_iTe_gHH"
+          }, 
+          {
+            "id": "NNK9_F1o_pK5"
+          }, 
+          {
+            "id": "mcRJ_kq2_jFr"
+          }, 
+          {
+            "id": "XW9L_tA9_WaX"
+          }, 
+          {
+            "id": "5ek3_Cgq_WeZ"
+          }, 
+          {
+            "id": "P7eS_nP8_3dy"
+          }, 
+          {
+            "id": "jJF3_qaQ_Zsh"
+          }, 
+          {
+            "id": "oQUQ_D11_HPx"
+          }, 
+          {
+            "id": "CFW8_eBa_NaV"
+          }, 
+          {
+            "id": "1CX5_mZw_Vcq"
+          }, 
+          {
+            "id": "2x2V_UeL_6ke"
+          }, 
+          {
+            "id": "3FP7_4Eg_x8P"
+          }, 
+          {
+            "id": "cYCo_PxY_zQd"
+          }, 
+          {
+            "id": "AwXA_EM4_71n"
+          }, 
+          {
+            "id": "yVZH_zHh_6fG"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Yrken med social inriktning", 
+        "id": "GazW_2TU_kJw", 
+        "narrower": [
+          {
+            "id": "DSGC_nw7_WnH"
+          }, 
+          {
+            "id": "FpPP_jqK_xzT"
+          }, 
+          {
+            "id": "R8bW_rsJ_b2G"
+          }, 
+          {
+            "id": "n6iX_f2z_XfE"
+          }, 
+          {
+            "id": "5uP5_Ugw_aVE"
+          }, 
+          {
+            "id": "BWwk_fYX_S5B"
+          }, 
+          {
+            "id": "2L2s_EU8_PzR"
+          }, 
+          {
+            "id": "sq3e_WVv_Fjd"
+          }, 
+          {
+            "id": "pok1_ipJ_yzD"
+          }, 
+          {
+            "id": "7pz9_eY9_D2s"
+          }, 
+          {
+            "id": "aA2Z_9XX_R1v"
+          }, 
+          {
+            "id": "dJXy_Rpq_a2u"
+          }, 
+          {
+            "id": "wzeq_No2_LF1"
+          }, 
+          {
+            "id": "x5rn_vga_gRK"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Säkerhet och bevakning", 
+        "id": "E7hm_BLq_fqZ", 
+        "narrower": [
+          {
+            "id": "ug5y_o6z_U3L"
+          }, 
+          {
+            "id": "ayQ4_G3W_A2w"
+          }, 
+          {
+            "id": "rNcE_Zno_pD8"
+          }, 
+          {
+            "id": "nuXg_Wjc_JPd"
+          }, 
+          {
+            "id": "Uw64_cuc_U3H"
+          }, 
+          {
+            "id": "FKCE_Anf_zGH"
+          }, 
+          {
+            "id": "hgAg_gLr_YGg"
+          }, 
+          {
+            "id": "wCx8_rY3_XUT"
+          }, 
+          {
+            "id": "iqZh_3yX_i8n"
+          }, 
+          {
+            "id": "kZwz_D8K_bKs"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Yrken med teknisk inriktning", 
+        "id": "6Hq3_tKo_V57", 
+        "narrower": [
+          {
+            "id": "SPYW_7Z1_ShT"
+          }, 
+          {
+            "id": "GC7L_Yw7_Mfo"
+          }, 
+          {
+            "id": "bExu_8gk_azk"
+          }, 
+          {
+            "id": "qn2U_dB9_Cmh"
+          }, 
+          {
+            "id": "rwpH_6RA_XTT"
+          }, 
+          {
+            "id": "33Nt_DSs_YYA"
+          }, 
+          {
+            "id": "41KB_bfk_5jR"
+          }, 
+          {
+            "id": "mp2Y_vyC_RFV"
+          }, 
+          {
+            "id": "U8HK_Jdi_GuC"
+          }, 
+          {
+            "id": "ETAR_ggZ_Wuw"
+          }, 
+          {
+            "id": "eRkT_cTv_H9v"
+          }, 
+          {
+            "id": "xm5G_vGn_iyk"
+          }, 
+          {
+            "id": "ketV_G9W_GeR"
+          }, 
+          {
+            "id": "K8yg_U4C_gkY"
+          }, 
+          {
+            "id": "39yB_xPQ_ozd"
+          }, 
+          {
+            "id": "mis4_feV_uex"
+          }, 
+          {
+            "id": "Pd51_xnr_KCY"
+          }, 
+          {
+            "id": "PRQn_9yw_NJA"
+          }, 
+          {
+            "id": "3jEy_yuT_aVo"
+          }, 
+          {
+            "id": "v9nU_6Fw_4Qg"
+          }, 
+          {
+            "id": "nDaB_vdy_eAy"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Transport, distribution, lager", 
+        "id": "ASGV_zcE_bWf", 
+        "narrower": [
+          {
+            "id": "3MBw_pDA_P2F"
+          }, 
+          {
+            "id": "SZ7Q_2zF_nFy"
+          }, 
+          {
+            "id": "MrcX_RDn_N53"
+          }, 
+          {
+            "id": "957L_kZK_rHZ"
+          }, 
+          {
+            "id": "P7Ay_ooF_pri"
+          }, 
+          {
+            "id": "kLyY_rwr_aJr"
+          }, 
+          {
+            "id": "WhBn_FAp_ZNW"
+          }, 
+          {
+            "id": "bwnk_nv2_1cR"
+          }, 
+          {
+            "id": "UGgc_Vm9_Bog"
+          }, 
+          {
+            "id": "ffz2_2n3_R7g"
+          }, 
+          {
+            "id": "gaBh_1vR_tNE"
+          }, 
+          {
+            "id": "7n3y_FTE_qSe"
+          }, 
+          {
+            "id": "Rsoy_sS6_6c4"
+          }, 
+          {
+            "id": "yct8_Pun_DWd"
+          }, 
+          {
+            "id": "nk6Z_5oD_QoM"
+          }, 
+          {
+            "id": "1Tso_4TB_RkE"
+          }, 
+          {
+            "id": "kDnq_Q98_sD3"
+          }, 
+          {
+            "id": "CbQK_7th_Tyf"
+          }, 
+          {
+            "id": "s78G_Zp2_dkq"
+          }, 
+          {
+            "id": "qhbP_JEJ_HtK"
+          }, 
+          {
+            "id": "FiDm_2S8_gx7"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Chefer och verksamhetsledare", 
+        "id": "bh3H_Y3h_5eD", 
+        "narrower": [
+          {
+            "id": "qVHD_Hj5_PXh"
+          }, 
+          {
+            "id": "eX3C_MtJ_nPA"
+          }, 
+          {
+            "id": "NQTS_fou_E6u"
+          }, 
+          {
+            "id": "z8di_AqX_GBr"
+          }, 
+          {
+            "id": "9QMD_sZ3_ZjX"
+          }, 
+          {
+            "id": "mNoS_AN5_drn"
+          }, 
+          {
+            "id": "4GAs_rKs_2Ne"
+          }, 
+          {
+            "id": "eWiB_mGP_MjE"
+          }, 
+          {
+            "id": "ddGt_fEH_432"
+          }, 
+          {
+            "id": "coyZ_Cyv_Srw"
+          }, 
+          {
+            "id": "nNxJ_YWy_vR2"
+          }, 
+          {
+            "id": "X1Ac_Y9P_PJo"
+          }, 
+          {
+            "id": "3i4a_Ufc_qpp"
+          }, 
+          {
+            "id": "pf1K_PTz_frm"
+          }, 
+          {
+            "id": "mZsb_A1K_Gec"
+          }, 
+          {
+            "id": "8SPu_K1k_5qR"
+          }, 
+          {
+            "id": "NxXz_fBh_w7j"
+          }, 
+          {
+            "id": "g6eC_Fwu_B3J"
+          }, 
+          {
+            "id": "9Mn4_PNA_7Yz"
+          }, 
+          {
+            "id": "Fu4x_7KG_YgC"
+          }, 
+          {
+            "id": "wby2_mwq_fWV"
+          }, 
+          {
+            "id": "QG4f_MCh_vND"
+          }, 
+          {
+            "id": "womV_SEj_CAH"
+          }, 
+          {
+            "id": "mpuA_s56_Hsy"
+          }, 
+          {
+            "id": "x9mo_1VH_Rps"
+          }, 
+          {
+            "id": "Pz9M_srJ_Lc9"
+          }, 
+          {
+            "id": "sWzF_6pd_Y6L"
+          }, 
+          {
+            "id": "ajwx_FvL_YuY"
+          }, 
+          {
+            "id": "7mn2_kA9_ftp"
+          }, 
+          {
+            "id": "hZLv_S5f_jo2"
+          }, 
+          {
+            "id": "uxst_tkg_zDh"
+          }, 
+          {
+            "id": "1uau_t1u_rDL"
+          }
+        ]
+      }, 
+      {
+        "preferred_label": "Militära yrken", 
+        "id": "bH5L_uXD_ZAX", 
+        "narrower": [
+          {
+            "id": "jXUQ_rUV_iBv"
+          }, 
+          {
+            "id": "KiVA_anS_RJh"
+          }, 
+          {
+            "id": "dhgR_9jk_95r"
+          }
+        ]
+      }
+    ]
+  }
+}
