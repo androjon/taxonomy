@@ -74,7 +74,7 @@ def show_info_selected_sidebar(fields, groups, occupation, short_definition, res
         if not skills or len(skills) < 20:
             related_groups = st.session_state.occupationdata[id].related_occupation_groups
             skills = st.session_state.skills.get(related_groups[0])
-            group = f"<p style='font-size:10px;'>Ordmoln utifrån yrkesgrupp</p>"
+            group = f"<p style='font-size:10px;'>Ordmoln utifrån {groups}</p>"
             st.markdown(group, unsafe_allow_html=True)
         create_small_wordcloud(skills)
 
