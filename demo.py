@@ -59,8 +59,11 @@ def fetch_number_of_ads(url):
     response = requests.get(url)
     data = response.text
     json_data = json.loads(data)
-    json_data_total = json_data["total"]
-    number_of_ads = list(json_data_total.values())[0]
+    if json_data["total"]:
+        json_data_total = json_data["total"]
+        number_of_ads = list(json_data_total.values())[0]
+    else:
+        number_of_ads = 0
     return number_of_ads
 
 @st.cache_data
