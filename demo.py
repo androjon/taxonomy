@@ -502,7 +502,6 @@ def post_selected_occupation(id_occupation):
         if selected_region:
             regional_id = st.session_state.regions.get(selected_region)
             relevant_forecast = forecasts.get(regional_id)
-            st.write(regional_id)
         else:
             regional_id = None
             relevant_forecast = forecasts.get("i46j_HmG_v64")
