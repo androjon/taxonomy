@@ -77,20 +77,6 @@ def number_of_ads(ssyk_id, region_id, words):
     number_of_ads = fetch_number_of_ads(url)
     return number_of_ads
 
-# @st.cache_data
-# def add_forecast_addnumbers_selected_occupation(id, id_groups, id_region, arrow_str, words):
-#     if arrow_str == "små":
-#         arrow = "\u2193"
-#     elif arrow_str == "medelstora":
-#         arrow = "\u2192"
-#     elif arrow_str == "stora":
-#         arrow = "\u2191"
-#     else:
-#         arrow = ""
-#     addnumbers = number_of_ads(id_groups, id_region, words)
-#     groupname = st.session_state.occupationdata[id_groups[0]].name
-#     return str(f"{groupname}({addnumbers}){arrow}"), str(f"{groupname}({arrow})")
-
 @st.cache_data
 def add_forecast_addnumbers_occupation(id, id_groups, id_region, arrow_str, words):
     if arrow_str == "små":
@@ -398,32 +384,6 @@ def compare_background_similar(selected_id, id_similar, selected_words_of_experi
             short_definition, rest_of_definition, taxonomy_text, taxonomy = create_short_rest_of_definition_and_taxonomy_text(selected_similar_id)
             show_info_similar(short_definition, rest_of_definition, taxonomy[0:5], selected_similar_id)
 
-        #     id_selected_similar = list(filter(lambda x: input["yrkesid_namn"][x] == selected_similar, input["yrkesid_namn"]))[0]
-        #     descriptions = import_data("id_yrkesbeskrivningar.json")
-        #     similar_description = descriptions.get(id_selected_similar)
-
-        #     try:
-        #         af_competences = input["yrkesid_topplista_taxonomibegrepp"].get(id_selected_similar)
-        #         if not af_competences:
-        #             af_competences = ["Kunde inte hitta någon data"]
-        #     except:
-        #         af_competences = ["Kunde inte hitta någon data"]
-        #     taxonomy = ("  \n ").join(af_competences)
-
-        #     st.write(selected_similar)
-        #     st.write(similar_description)
-
-        #     col1, col2 = st.columns(2)
-
-        #     with col1:
-        #         st.write(f"Ord som förekommer i annonser")
-        #         create_small_wordcloud(skills_selected_similar)
-
-        #     with col2:
-        #         st.write(f"Efterfrågade kompetenser")
-        #         st.write("")
-        #         st.write(taxonomy)
-
 def show_similar_occupation(selected_id, selected_interest, selected_words_of_experience, selected_region):
     all_similar, words_of_interest = create_similar_data(selected_id, selected_interest)
 
@@ -547,7 +507,7 @@ def post_selected_occupation(id_occupation):
             relevant_forecast = forecasts.get("i46j_HmG_v64")
         if not relevant_forecast:
             relevant_forecast = ["", "", ""]    
-        elif not relevant_forecast[0]:
+        if not relevant_forecast[0]:
             relevant_forecast[0] = ""
         name_with_addnumbers_forecast,  name_with_forecast = add_forecast_addnumbers_occupation(id_occupation, related_groups, regional_id, relevant_forecast[0], keywords)
         link = create_link(related_groups, keywords, regional_id)
