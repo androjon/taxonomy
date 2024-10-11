@@ -59,11 +59,8 @@ def fetch_number_of_ads(url):
     response = requests.get(url)
     data = response.text
     json_data = json.loads(data)
-    if json_data["total"]:
-        json_data_total = json_data["total"]
-        number_of_ads = list(json_data_total.values())[0]
-    else:
-        number_of_ads = 0
+    json_data_total = json_data["total"]
+    number_of_ads = list(json_data_total.values())[0]
     return number_of_ads
 
 @st.cache_data
@@ -231,7 +228,7 @@ def create_words_of_interest(selected_skills, similar):
     return words_of_interest
 
 def create_keywords(skills, words):
-    number_to_save = 15
+    number_to_save = 10
     listed_skills = list(skills.keys())
     all_skills = words + listed_skills
     keywords = all_skills[0:number_to_save]
