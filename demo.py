@@ -232,6 +232,7 @@ def initiate_session_state():
         st.session_state.chosen_background = False
         st.session_state.show_more_similar_occupations = False
         st.session_state.stored_backgrounds = {}
+        st.session_state.stored_background_ssyk = []
         st.session_state.stored_taxonomy = []
         st.session_state.words_of_experience = []
         st.session_state.words_of_interest = []
@@ -253,6 +254,9 @@ def save_selections(id_occupation, level_of_experience, selected_words_of_experi
     if id_occupation not in st.session_state.stored_backgrounds:
         st.session_state.chosen_background = True
         st.session_state.stored_backgrounds[id_occupation] = level_of_experience
+        related_groups = st.session_state.occupationdata[id_occupation].related_occupation_groups
+        for r in related_groups:
+            st.session_state.stored_background_ssyk.append(r)
 
         st.session_state.words_of_experience.extend(selected_words_of_experience)
         st.session_state.words_of_experience = list(set(st.session_state.words_of_experience))
@@ -772,9 +776,12 @@ def calculate_more_similar_occupations(skills):
     all_similar = {}
     for key, value in st.session_state.skills.items():
         if key in st.session_state.valid_ids:
-            if key not in st.session_state.shown_similar_occupations:
-                if key not in st.session_state.stored_backgrounds:
-                    all_similar[key] = calculate_cosine(skills, value)
+            related_groups = st.session_state.occupationdata[key].related_occupation_groups
+            check = all(e in related_groups for e in st.session_state.stored_background_ssyk)
+            if check == False:
+                if key not in st.session_state.shown_similar_occupations:
+                    if key not in st.session_state.stored_backgrounds:
+                        all_similar[key] = calculate_cosine(skills, value)
     all_similar = dict(sorted(all_similar.items(), key = lambda x:x[1], reverse = True))
     all_similar = dict(itertools.islice(all_similar.items(), 8))    
     return all_similar
