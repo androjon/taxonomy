@@ -826,7 +826,7 @@ def choose_background():
         st.session_state.similar_occupations = []
         st.session_state.selected_taxonomy = []
 
-    if len(st.session_state.stored_backgrounds) >= 1:
+    if len(st.session_state.stored_backgrounds) >= 2:
         st.button("Använd annons- och utbildningsdata för att hitta fler liknande yrken", on_click = change_state_show_more_similar_occupations)
                   
     if st.session_state.show_more_similar_occupations == True:
