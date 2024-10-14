@@ -2,10 +2,13 @@ import streamlit as st
 import re
 import requests
 import json
+import math
+import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib_venn import venn2
 from wordcloud import WordCloud
 from collections import Counter
+import itertools
 
 from occupation_class import create_occupation_index
 from create_options import create_options
@@ -59,8 +62,8 @@ def fetch_number_of_ads(url):
     response = requests.get(url)
     data = response.text
     json_data = json.loads(data)
-    json_data_total = json_data["total"]
-    number_of_ads = list(json_data_total.values())[0]
+    data_total = json_data["total"]
+    number_of_ads = list(data_total.values())[0]
     return number_of_ads
 
 @st.cache_data
@@ -105,6 +108,7 @@ def convert_text(text):
 
 def create_link(id_groups, keywords, id_region):
     #Multiple groups in Platsbanken - p=5:5qT8_z9d_8rw;5:J17g_Q2a_2u1
+    #There seems to be a 255 character limit for the link and therefore it is difficult to add more than 10 words
     id_groups = id_groups[0]
     base = f"https://arbetsformedlingen.se/platsbanken/annonser?p=5:{id_groups}&q="
     keywords_split = []
@@ -146,7 +150,7 @@ def show_info_selected_sidebar(fields, groups, occupation, short_definition, res
             st.markdown(group, unsafe_allow_html=True)
         create_small_wordcloud(skills)
 
-        if taxonomy:    
+        if taxonomy:
             taxonomy_text_string = "<br />".join(taxonomy)
             taxonomy_text_string = f"Efterfrågade kompetenser:<br />{taxonomy_text_string}"
             taxonomy_text = f"<p style='font-size:10px;'>{taxonomy_text_string}</p>"
@@ -154,6 +158,13 @@ def show_info_selected_sidebar(fields, groups, occupation, short_definition, res
 
         rest_of_definition = f"<p style='font-size:10px;'>{rest_of_definition}</p>"
         st.markdown(rest_of_definition, unsafe_allow_html=True)
+
+
+def show_info_selected_educational_focus_sidebar(name, skills):
+    with st.sidebar:
+        educational_focus_name = f"<p style='font-size:10px;'>Ordmoln utifrån utbildningsinriktningen {name}</p>"
+        st.markdown(educational_focus_name, unsafe_allow_html=True)
+        create_small_wordcloud(skills)
 
 def show_info_selected(description):
     definition = f"<p style='font-size:10px;'>{description}</p>"
@@ -164,8 +175,6 @@ def show_info_similar(short_definition, rest_of_definition, taxonomy, id):
     col1, col2 = st.columns(2)
 
     with col1:
-        #st.write(st.session_state.occupationdata[id].name)
-
         skills = st.session_state.skills.get(id)
         if not skills or len(skills) < 20:
                 related_group = st.session_state.occupationdata[id].related_occupation_groups[0]
@@ -181,7 +190,7 @@ def show_info_similar(short_definition, rest_of_definition, taxonomy, id):
         short_definition = f"<p style='font-size:14px;'>{short_definition}</p>"
         st.markdown(short_definition, unsafe_allow_html=True)
 
-        if taxonomy:    
+        if taxonomy:
             taxonomy_text_string = "<br />".join(taxonomy)
             taxonomy_text_string = f"Efterfrågade kompetenser:<br />{taxonomy_text_string}"
             taxonomy_text = f"<p style='font-size:14px;'>{taxonomy_text_string}</p>"
@@ -198,22 +207,79 @@ def show_initial_information():
 
 def change_state_chosen_background():
     st.session_state.chosen_background = False
+    st.session_state.show_more_similar_occupations = False
+
+def change_state_show_more_similar_occupations():
+    st.session_state.show_more_similar_occupations = True
 
 def initiate_session_state():
+    st.session_state.occupationdata = import_occupationdata()
+    st.session_state.definitions = import_data("id_definitions.json")
+    st.session_state.taxonomy = import_data("id_taxonomy_wheel.json")
+    st.session_state.skills = import_data("ID_skills.json")
+    st.session_state.forecasts = import_data("forecast.json")
+    st.session_state.regions = import_data("region_name_id.json")
+    st.session_state.similar_occupations = import_data("similar_occupations.json")
+    st.session_state.similar_ssyk = import_data("similar_ssyk_occupations.json")
+    st.session_state.similar_susa = import_data("susa_similar_occupations.json")
+    st.session_state.field_of_study_educational_focus = import_data("field_of_study_educational_focus.json")
+    st.session_state.field_of_study_educational_focus_skills = import_data("field_of_study_educational_focus_skills.json")
+
+    st.session_state.valid_ids = []
+    create_valid_ids()
+
     if "chosen_background" not in st.session_state:
         st.session_state.chosen_background = False
-        st.session_state.stored_backgrounds = []
+        st.session_state.show_more_similar_occupations = False
+        st.session_state.stored_backgrounds = {}
         st.session_state.stored_taxonomy = []
         st.session_state.words_of_experience = []
         st.session_state.words_of_interest = []
-        st.session_state.similar_occupations = []
+        st.session_state.shown_similar_occupations = []
         st.session_state.selected_region = ""
 
-    if len(st.session_state.stored_backgrounds) > 2:
-        st.button("Testa om annons- och utbildningsdata kan hjälpa dig att upptäcka dina dolda kompetenser") #on_click = ?
+def display_saved_data():
+    with st.sidebar:
+        rubrik = f"<p style='font-size:12px;font-weight: bold;'>Tillfälligt sparad data</p>"
+        st.markdown(rubrik, unsafe_allow_html=True)
+        bakgrundstext = f"Sparade bakgrunder: {len(st.session_state.stored_backgrounds)}\n"
+        bakgrundstext += f"Sparade kompetensbegrepp: {len(st.session_state.stored_taxonomy)}\n"
+        bakgrundstext += f"Sparade erfarenhetsord: {len(st.session_state.words_of_experience)}\n"
+        bakgrundstext += f"Sparade intresseord: {len(st.session_state.words_of_interest)}"
+        text = f"<p style='font-size:12px;white-space: pre;'>{bakgrundstext}</p>"
+        st.markdown(text, unsafe_allow_html=True)
 
-    if st.session_state.chosen_background == True:
-        st.button("Lägga till fler yrkes- eller utbildningsbakgrunder", on_click = change_state_chosen_background)
+def save_selections(id_occupation, level_of_experience, selected_words_of_experience, selected_words_of_interest, selected_words_of_taxonomy, shown_similar_id):
+    if id_occupation not in st.session_state.stored_backgrounds:
+        st.session_state.chosen_background = True
+        st.session_state.stored_backgrounds[id_occupation] = level_of_experience
+
+        st.session_state.words_of_experience.extend(selected_words_of_experience)
+        st.session_state.words_of_experience = list(set(st.session_state.words_of_experience))
+
+        st.session_state.words_of_interest.extend(selected_words_of_interest)
+        st.session_state.words_of_interest = list(set(st.session_state.words_of_interest))
+
+        st.session_state.stored_taxonomy.extend(selected_words_of_taxonomy)
+        st.session_state.stored_taxonomy = list(set(st.session_state.stored_taxonomy))
+
+        st.session_state.shown_similar_occupations.extend(shown_similar_id)
+        st.session_state.shown_similar_occupations = list(set(st.session_state.shown_similar_occupations))
+
+        display_saved_data()
+
+def save_selections_education(educational_background, level_of_experience, words_of_interest, shown_similar_id):
+    if educational_background not in st.session_state.stored_backgrounds:
+        st.session_state.chosen_background = True
+        st.session_state.stored_backgrounds[educational_background] = level_of_experience
+
+        st.session_state.words_of_interest.extend(words_of_interest)
+        st.session_state.words_of_interest = list(set(st.session_state.words_of_interest))
+
+        st.session_state.shown_similar_occupations.extend(shown_similar_id)
+        st.session_state.shown_similar_occupations = list(set(st.session_state.shown_similar_occupations))
+
+        display_saved_data()
 
 def create_words_of_interest(selected_skills, similar):
     selected_skills = list(selected_skills.keys())
@@ -239,16 +305,16 @@ def create_similar_data(id, interest):
     if not similar_ids:
         similar_ids = st.session_state.similar_ssyk.get(st.session_state.occupationdata[id].related_occupation_groups[0])
     similar_within_field_ids = similar_ids["within_field"]
-    similar_within_field_ids = [id for id in similar_within_field_ids if id in st.session_state_valid_ids]
+    similar_within_field_ids = [id for id in similar_within_field_ids if id in st.session_state.valid_ids]
     similar_similar_field_ids = similar_ids["similar_field"]
-    similar_similar_field_ids = [id for id in similar_similar_field_ids if id in st.session_state_valid_ids]
+    similar_similar_field_ids = [id for id in similar_similar_field_ids if id in st.session_state.valid_ids]
     if interest == "inte intresserad":
         number_same_area = 0
         number_other_area = 8
-    elif interest == "?":
+    elif interest == "vet inte":
         number_same_area = 4
         number_other_area = 4
-    elif interest == "mycket":
+    elif interest == "mycket intresserad":
         number_same_area = 8
         number_other_area = 0
     all_similar = {}
@@ -266,15 +332,15 @@ def create_similar_data(id, interest):
     words_of_interest = create_words_of_interest(skills_selected, all_similar)
     return all_similar, words_of_interest
 
-def create_comparable_lists(selected_id, selected_similar_id, selected_words):
+def create_comparable_lists(selected, selected_similar_id, selected_words):
     output = []
-    skills_selected = list(st.session_state.skills.get(selected_id).keys())
+    skills_selected = selected[1]
     for s in skills_selected:
         if s in selected_words:
             index_to_move_from = skills_selected.index(s)
             skill_to_move = skills_selected.pop(index_to_move_from)
             skills_selected.insert(0, skill_to_move)
-    background = {"name": st.session_state.occupationdata[selected_id].name,
+    background = {"name": selected[0],
                 "skills": skills_selected}
     output.append(background)
     skills_similar = list(st.session_state.skills.get(selected_similar_id).keys())
@@ -295,8 +361,8 @@ def count_frequency(data):
         output[k] = a
     return output
 
-def compare_background_and_similar(selected_id, selected_similar_id, selected_words):
-    comparable_list = create_comparable_lists(selected_id, selected_similar_id, selected_words)
+def compare_background_and_similar(selected, selected_similar_id, selected_words):
+    comparable_list = create_comparable_lists(selected, selected_similar_id, selected_words)
     output = {}
     all_skills = []
     unique_skills = []
@@ -359,7 +425,7 @@ def create_venn(indata):
         pass
     return plt
 
-def compare_background_similar(selected_id, id_similar, selected_words_of_experience, selected_words_of_interest):
+def compare_background_similar(selected, id_similar, selected_words_of_experience, selected_words_of_interest):
         valid_similar = {}
         for i in id_similar:
             valid_similar[st.session_state.occupationdata[i].name] = i
@@ -367,14 +433,14 @@ def compare_background_similar(selected_id, id_similar, selected_words_of_experi
         selected_similar = st.selectbox(
             "Välj ett liknande yrke som du skulle vilja veta mer om",
             (sorted_valid_similar),index = None)
-        
+
         if selected_similar:
-            selected_similar_id = valid_similar.get(selected_similar)        
+            selected_similar_id = valid_similar.get(selected_similar)
             selected_words = selected_words_of_experience + selected_words_of_interest
 
-            st.write(f"Nedanför ser du likheter och skillnader mellan hur olika arbetsgivare och utbildningsanordnare uttrycker sig när det kommer till kunskaper, erfarenheter och arbetsuppgifter för {st.session_state.occupationdata[selected_id].name} och {selected_similar}")
+            st.write(f"Nedanför ser du likheter och skillnader mellan hur olika arbetsgivare och utbildningsanordnare uttrycker sig när det kommer till kunskaper, erfarenheter och arbetsuppgifter för {selected[0]} och {selected_similar}")
 
-            venn_data = compare_background_and_similar(selected_id, selected_similar_id, selected_words)
+            venn_data = compare_background_and_similar(selected, selected_similar_id, selected_words)
 
             venn = create_venn(venn_data)
             st.pyplot(venn)
@@ -384,14 +450,8 @@ def compare_background_similar(selected_id, id_similar, selected_words_of_experi
             short_definition, rest_of_definition, taxonomy_text, taxonomy = create_short_rest_of_definition_and_taxonomy_text(selected_similar_id)
             show_info_similar(short_definition, rest_of_definition, taxonomy[0:5], selected_similar_id)
 
-def show_similar_occupation(selected_id, selected_interest, selected_words_of_experience, selected_region):
-    all_similar, words_of_interest = create_similar_data(selected_id, selected_interest)
+def show_similar_occupation(selected, selected_region, all_similar, selected_words_of_experience, selected_words_of_interest):
 
-    words_of_interest = words_of_interest[0:20]
-    selected_words_of_interest = st.multiselect(
-        f"Här kommer en lista på några ord från annonser för yrkesbenämningar som på ett eller annat sätt liknar det du tidigare har jobbat med. Välj ett eller flera ord som beskriver vad du är intresserad av.",
-        (words_of_interest),)
-    
     all_selected_words = selected_words_of_interest + selected_words_of_experience
 
     st.divider()
@@ -415,11 +475,11 @@ def show_similar_occupation(selected_id, selected_interest, selected_words_of_ex
             else:
                 relevant_forecast = forecasts.get("i46j_HmG_v64")
             if not relevant_forecast:
-                relevant_forecast = ["", "", ""]    
+                relevant_forecast = ["", "", ""]
             elif not relevant_forecast[0]:
                 relevant_forecast[0] = ""
         else:
-            relevant_forecast = ["", "", ""] 
+            relevant_forecast = ["", "", ""]
         related_groups = st.session_state.occupationdata[key].related_occupation_groups
         name_with_addnumbers_forecast,  name_with_forecast = add_forecast_addnumbers_occupation(key, related_groups, regional_id, relevant_forecast[0], keywords)
         link = create_link(related_groups, keywords, regional_id)
@@ -427,14 +487,16 @@ def show_similar_occupation(selected_id, selected_interest, selected_words_of_ex
             col1.link_button(name_with_addnumbers_forecast, link, help = relevant_forecast[2])
         else:
             col2.link_button(name_with_addnumbers_forecast, link, help = relevant_forecast[2])
-        number_of_similar += 1 
+        number_of_similar += 1
 
-    compare_background_similar(selected_id, list(all_similar.keys()), selected_words_of_experience, selected_words_of_interest)
-   
+    compare_background_similar(selected, list(all_similar.keys()), selected_words_of_experience, selected_words_of_interest)
 
-def create_valid_options(input, fields, groups, occupations, titles):
-    options_field, options_ssyk_level_4, options_occupations, options_titles = import_options(input)
-    st.session_state_valid_ids = list(options_occupations.values())
+def create_valid_ids():
+    options_field, options_ssyk_level_4, options_occupations, options_titles = import_options(st.session_state.occupationdata)
+    st.session_state.valid_ids = list(options_occupations.values())
+
+def create_valid_options(fields, groups, occupations, titles):
+    options_field, options_ssyk_level_4, options_occupations, options_titles = import_options(st.session_state.occupationdata, )
     output = {}
     if fields:
         output = output | dict(sorted(options_field.items(), key = lambda item: item[0]))
@@ -469,8 +531,10 @@ def post_selected_occupation(id_occupation):
     show_info_selected_sidebar(related_fields_str, related_groups_str, st.session_state.occupationdata[id_occupation].showname, short_definition, rest_of_definition, taxonomy_text, id_occupation)
     if taxonomy:
         selected_words_of_taxonomy = st.multiselect(
-            f"Här är en lista på några viktiga kompetenser för {st.session_state.occupationdata[id_occupation].name}. Välj en eller flera som motsvarar din bakgrund",
+            f"Här är en lista på några viktiga kompetenser för {st.session_state.occupationdata[id_occupation].name}. Välj en eller flera som motsvarar din bakgrund.",
             (taxonomy),)
+    else:
+        selected_words_of_taxonomy = []
 
     skills = st.session_state.skills.get(id_occupation)
     if not skills or len(skills) < 20:
@@ -484,9 +548,9 @@ def post_selected_occupation(id_occupation):
     selected_words_of_experience = st.multiselect(
         f"Här är en lista på några ord från annonser för {words_of_experience_based_on}. Välj ett eller flera ord som beskriver vad du är bra på.",
         (words_of_experience),)
-    
+
     keywords = create_keywords(skills, selected_words_of_experience)
-    
+
     col1, col2 = st.columns(2)
 
     with col2:
@@ -506,33 +570,41 @@ def post_selected_occupation(id_occupation):
             regional_id = None
             relevant_forecast = forecasts.get("i46j_HmG_v64")
         if not relevant_forecast:
-            relevant_forecast = ["", "", ""]    
+            relevant_forecast = ["", "", ""]
         if not relevant_forecast[0]:
             relevant_forecast[0] = ""
         name_with_addnumbers_forecast,  name_with_forecast = add_forecast_addnumbers_occupation(id_occupation, related_groups, regional_id, relevant_forecast[0], keywords)
         link = create_link(related_groups, keywords, regional_id)
-        st.link_button(name_with_addnumbers_forecast, link, help = relevant_forecast[2])
+        link_name = f"Visa annonser för {name_with_addnumbers_forecast}"
+        st.link_button(link_name, link, help = relevant_forecast[2])
 
-        st.button("Spara bakgrund och börja om från början") #, on_click = save_selections, args = (selected_occupation, selected_words_of_experience, selected_words_of_interest, all_similar))
+        st.button(f"Hjälp med CV för {st.session_state.occupationdata[id_occupation].name}",)
 
     st.divider()
-    
-    col1, col2 = st.columns(2)
 
-    with col1:
-        selected_interest_area = st.radio(
-            f"Hur intresserad är du av yrken inom yrkesområdet {st.session_state.occupationdata[related_fields[0]].name}?",
-            ["inte intresserad", "?", "mycket"],
-            index = 1, horizontal = True,)
-        
-    with col2:
-        selected_interest_education = st.radio(
-            f"OBS! Inte implementerad än. Typ hur långa studier kan du tänka dig",
-            [0, 1, 2, 3],
-            index = None, horizontal = True,)
+    selected_level_of_experience = st.radio(
+        f"Hur lång erfarenhet har du som {st.session_state.occupationdata[id_occupation].name}?",
+        ["kort", "vet inte", "lång"],
+        index = 1, horizontal = True,)
 
-    show_similar_occupation(id_occupation, selected_interest_area, selected_words_of_experience, selected_region)
+    selected_interest_area = st.radio(
+        f"Hur intresserad är du av andra yrken inom yrkesområdet {st.session_state.occupationdata[related_fields[0]].name}?",
+        ["inte intresserad", "vet inte", "mycket intresserad"],
+        index = 1, horizontal = True,)
     
+    all_similar, words_of_interest = create_similar_data(id_occupation, selected_interest_area)
+
+    words_of_interest = words_of_interest[0:20]
+    selected_words_of_interest = st.multiselect(
+        f"Här kommer en lista på några ord från annonser för yrkesbenämningar som på ett eller annat sätt liknar det du tidigare har jobbat med. Välj ett eller flera ord som beskriver vad du är intresserad av.",
+        (words_of_interest),)
+    
+    st.button("Spara bakgrund och börja om från början", on_click = save_selections, args = (id_occupation, selected_level_of_experience, selected_words_of_experience, selected_words_of_interest, selected_words_of_taxonomy, list(all_similar.keys())))
+
+    selected = [st.session_state.occupationdata[id_occupation].name, list(st.session_state.skills.get(id_occupation).keys())]
+
+    show_similar_occupation(selected, selected_region, all_similar, selected_words_of_experience,selected_words_of_interest)
+
 def choose_ssyk_level_4(field_id):
     ssyk_level_4_options = {}
     for g in st.session_state.occupationdata[field_id].related_occupation_groups:
@@ -555,18 +627,8 @@ def choose_occupation_name(dict_valid_occupations):
     if selected_occupation_name:
         id_selected_occupation = dict_valid_occupations.get(selected_occupation_name)
         post_selected_occupation(id_selected_occupation)
-        
-def choose_occupational_background():
-    st.session_state.occupationdata = import_occupationdata()
-    st.session_state.definitions = import_data("id_definitions.json")
-    st.session_state.taxonomy = import_data("id_taxonomy_wheel.json")
-    st.session_state.skills = import_data("ID_skills.json")
-    st.session_state.forecasts = import_data("forecast.json")
-    st.session_state.regions = import_data("region_name_id.json")
-    st.session_state.similar_occupations = import_data("similar_occupations.json")
-    st.session_state.similar_ssyk = import_data("similar_ssyk_occupations.json")
-    st.session_state_valid_ids = []
 
+def choose_occupational_background():
     col1, col2 = st.columns(2)
 
     with col1:
@@ -577,7 +639,7 @@ def choose_occupational_background():
         exclude_occupations = st.toggle("inkludera yrkesbenämningar", value = False)
         exclude_titles = st.toggle("inkludera jobbtitlar", value = False)
 
-    valid_options_dict = create_valid_options(st.session_state.occupationdata, exclude_fields, exclude_groups, exclude_occupations, exclude_titles)
+    valid_options_dict = create_valid_options(exclude_fields, exclude_groups, exclude_occupations, exclude_titles)
     valid_options_list = list(valid_options_dict.keys())
 
     selected_option_occupation_field = st.selectbox(
@@ -599,29 +661,196 @@ def choose_occupational_background():
         if type_selected_option_occupation_field == "jobbtitel":
             occupation_name_options = {}
             for o in st.session_state.occupationdata[id_selected_option_occupation_field].related_occupation:
-                occupation_name_options[st.session_state.occupationdata[o].showname] = st.session_state.occupationdata[o].id            
+                occupation_name_options[st.session_state.occupationdata[o].showname] = st.session_state.occupationdata[o].id
             choose_occupation_name(occupation_name_options)
 
         if type_selected_option_occupation_field == "yrkesbenämning":
             post_selected_occupation(id_selected_option_occupation_field)
 
+def choose_educational_background():
+    list_field_of_study = sorted(list(st.session_state.field_of_study_educational_focus.keys()))
+
+    selected_field_of_study = st.selectbox(
+        "Välj ett område som du har tidigare utbildning inom",
+        (list_field_of_study), index = None)
+    
+    if selected_field_of_study:
+        list_educational_focus = sorted(st.session_state.field_of_study_educational_focus.get(selected_field_of_study))
+
+        selected_educational_focus = st.selectbox(
+            "Välj en inriktning som du har tidigare utbildning inom",
+            (list_educational_focus), index = None)
+        
+        if selected_educational_focus:
+            skills = st.session_state.field_of_study_educational_focus_skills.get(selected_educational_focus)
+            if not skills or len(skills) < 20:
+                st.write("Ingen tillgänglig data om utbildningsinriktningen")
+            else:
+                list_skills = list(skills.keys())[0:20]
+
+                show_info_selected_educational_focus_sidebar(selected_educational_focus, skills)
+
+                similar_occupations = st.session_state.similar_susa.get(selected_educational_focus)[0:8]
+                similar_occupations_with_names = {}
+                all_similar = {}
+                for s in similar_occupations:
+                    if s in st.session_state.valid_ids:
+                       similar_occupations_with_names[st.session_state.occupationdata[s].name] = s
+                       all_similar[s] = st.session_state.skills.get(s)
+
+                selected_words_of_experience_education = st.multiselect(
+                    f"Välj ett eller flera ord som beskriver vad du har mycket kunskap om.",
+                    (list_skills),)
+                
+                words_of_interest = create_words_of_interest(skills, all_similar)
+                words_of_interest = words_of_interest[0:20]
+                selected_words_of_interest_education = st.multiselect(
+                    f"Här kommer en lista på några ord från annonser för yrkesbenämningar som på ett eller annat sätt liknar det du tidigare har studerat. Välj ett eller flera ord som beskriver vad du är intresserad av.",
+                    (words_of_interest),)
+                
+                col1, col2 = st.columns(2)
+
+                with col1:
+
+                    selected_level_of_experience = st.radio(
+                        f"Hur lång utbildning har du inom {selected_educational_focus}?",
+                        ["kort", "vet inte", "lång"],
+                        index = 1, horizontal = True,)
+                    
+                with col2:
+                    valid_regions = list(st.session_state.regions.keys())
+                    valid_regions = sorted(valid_regions)
+
+                    selected_region = st.selectbox(
+                        "Begränsa sökområde till ett län",
+                        (valid_regions), index = None,)                    
+
+                    st.button("Spara bakgrund och börja om från början", on_click = save_selections_education, args = (selected_educational_focus, selected_level_of_experience, selected_words_of_experience_education, list(similar_occupations_with_names.values())))
+
+                selected = [selected_educational_focus, list(skills.keys())]
+
+                show_similar_occupation(selected, selected_region, all_similar, selected_words_of_experience_education, selected_words_of_interest_education)                
+
+def conconcatenate_stored_background():
+    conconatenated_skills = {}
+    conconatenated_name = []
+    for key, value in st.session_state.stored_backgrounds.items():
+        if key in st.session_state.valid_ids:
+            background_name = st.session_state.occupationdata[key].name
+            bakground_skills = st.session_state.skills.get(key)
+            level_of_experience = value
+        else:
+            background_name = key
+            bakground_skills = st.session_state.field_of_study_educational_focus_skills.get(key)
+            level_of_experience = value
+        conconatenated_name.append(background_name)
+        if level_of_experience == "kort":
+            experience_faktor = 0.5
+        elif level_of_experience == "vet inte":
+            experience_faktor = 1
+        elif level_of_experience == "lång":
+            experience_faktor = 1.5
+        skills = {}
+        for k, v in bakground_skills.items():
+            skills[k] = v * experience_faktor
+        conconatenated_skills = dict(Counter(conconatenated_skills) + Counter(skills))
+    conconatenated_skills = dict(sorted(conconatenated_skills.items(), key = lambda x:x[1], reverse = True))
+    conconatenated_skills = dict(itertools.islice(conconatenated_skills.items(), 100))
+    st.session_state.conconcatenate_stored_background = [conconatenated_name, conconatenated_skills]
+
+def norma(data):
+    return math.sqrt(sum(x * x for x in data.values()))
+
+def calculate_cosine(A, B):
+    keys_in_both = list(A.keys() & B.keys())
+    Aa = list(A[k] for k in keys_in_both)
+    Bb = list(B[k] for k in keys_in_both)
+    cosine = np.dot(Aa, Bb) / (norma(A) * norma(B))
+    return round(cosine, 2)
+
+def calculate_more_similar_occupations(skills):
+    all_similar = {}
+    for key, value in st.session_state.skills.items():
+        if key in st.session_state.valid_ids:
+            if key not in st.session_state.shown_similar_occupations:
+                if key not in st.session_state.stored_backgrounds:
+                    all_similar[key] = calculate_cosine(skills, value)
+    all_similar = dict(sorted(all_similar.items(), key = lambda x:x[1], reverse = True))
+    all_similar = dict(itertools.islice(all_similar.items(), 8))    
+    return all_similar
+
+def change_word_colour():
+    def test_color_func(word, font_size, position, orientation, font_path, random_state):
+        if word in st.session_state.words_of_interest:
+            return 'blue'
+        elif word in st.session_state.words_of_experience:
+            return 'green'
+        else:
+            r, g, b, alpha = plt.get_cmap('cividis')(font_size / 120)
+            return (int(r * 255), int(g * 255), int(b * 255))
+    return test_color_func
+
+@st.cache_data
+def create_wordcloud(skills):
+    wordcloud = WordCloud(width = 800, height = 800,
+                          background_color = 'white',
+                          prefer_horizontal = 1).generate_from_frequencies(skills)
+    wordcloud.recolor(color_func = change_word_colour())
+    plt.figure(figsize = (6, 6), facecolor = None)
+    plt.imshow(wordcloud)
+    plt.axis('off')
+    plt.tight_layout(pad = 0)
+    st.pyplot(plt)
+
+def show_hidden_competences_and_more_similar_occupations():
+    conconcatenate_stored_background()
+    new_similar = calculate_more_similar_occupations(st.session_state.conconcatenate_stored_background[1])
+    all_similar = {}
+    for s in new_similar:
+        if s in st.session_state.valid_ids:
+            all_similar[s] = st.session_state.skills.get(s)
+    with st.sidebar:
+        samlad = f"<p style='font-size:10px;'>Din samlade bakgrund</p>"
+        st.markdown(samlad, unsafe_allow_html=True)
+        create_wordcloud(st.session_state.conconcatenate_stored_background[1])
+    conconcatenate_name = "Din samlade bakgrund"
+    list_conconcatenate_stored_background = [conconcatenate_name, list(st.session_state.conconcatenate_stored_background[1].keys())]
+    show_similar_occupation(list_conconcatenate_stored_background, None, all_similar, st.session_state.words_of_experience, st.session_state.words_of_interest)
+
 def choose_background():
-    if st.session_state.chosen_background == False:
+    if "chosen_background" not in st.session_state:
+        st.session_state.chosen_background = False
+        st.session_state.stored_backgrounds = []
+        st.session_state.words_of_experience = []
+        st.session_state.words_of_interest = []
+        st.session_state.similar_occupations = []
+        st.session_state.selected_taxonomy = []
+
+    if len(st.session_state.stored_backgrounds) >= 1:
+        st.button("Använd annons- och utbildningsdata för att hitta fler liknande yrken", on_click = change_state_show_more_similar_occupations)
+                  
+    if st.session_state.show_more_similar_occupations == True:
+        show_hidden_competences_and_more_similar_occupations()
+
+    if st.session_state.chosen_background == True:
+        st.button("Lägga till fler yrkes- eller utbildningsbakgrunder", on_click = change_state_chosen_background)
+
+    if st.session_state.chosen_background == False and st.session_state.show_more_similar_occupations == False:
         occupational_or_educational = st.radio(
                     f"Välj om du vill utgå från en yrkes- eller utbildningsbakgrund",
                     ["yrkesbakgrund", "utbildningsbakgrund"],
                     horizontal = True, index = 0,
             )
 
-    if occupational_or_educational == "yrkesbakgrund":
-        choose_occupational_background()
+        if occupational_or_educational == "yrkesbakgrund":
+            choose_occupational_background()
 
-    # if occupational_or_educational == "utbildningsbakgrund":
-    #     select_educational_background(masterdata)
+        if occupational_or_educational == "utbildningsbakgrund":
+            choose_educational_background()
 
 def main ():
-    show_initial_information()
     initiate_session_state()
+    show_initial_information()
     choose_background()
 
 if __name__ == '__main__':
