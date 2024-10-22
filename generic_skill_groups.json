@@ -1,0 +1,214 @@
+[
+  {
+    "name": "Anpassningskompetens", 
+    "defintion": "Att utifrån förändrade omständigheter kunna anpassa sitt handlingssätt efter verksamhetens behov och förväntningar.", 
+    "generic_skills": [
+      {
+        "label": [
+          "Omställning"
+        ], 
+        "name": "Ändrar arbetssätt eller förhållningssätt när det krävs", 
+        "definition": "Att utifrån varierande eller förändrade omständigheter i arbetet kunna ställa om och anpassa arbetssätt, handlingar, planer, mål eller prioriteringar. På låg komplexitetsnivå handlar det om att välja lämplig rutin. På hög komplexitetsnivå handlar det om att agera utifrån en komplex eller snabb konsekvensanalys. \n\nExempelaktiviteter: välja verktyg och arbetsmetod efter väderlek, självständigt anpassa sitt arbetssätt efter en organisationsförändring, välja fortsatt behandlingsfokus i en psykoterapi utifrån nytillkommen information."
+      }, 
+      {
+        "label": [
+          "Tempoväxling"
+        ], 
+        "name": "Växlar arbetstempo när det krävs", 
+        "definition": "Att när arbetet kräver det kunna höja sin arbetsintensitet med bibehållen kvalitet. Även att kunna bibehålla lämplig aktivitetsnivå vid tillfälligt lugnare stunder, exempelvis genom efterarbete, förberedande arbete, extra arbetsuppgifter som inte annars prioriteras eller konstruktiv återhämtning. Komplexitetsnivån ökar med ökad belastning samt med ökad grad av oförutsägbarhet. \n\nExempelaktiviteter: bearbeta flera varubeställningar vid ökad belastning, jobba snabbare med att ge kunderna service på lunchrusningen på en restaurang, ta fram en ny modekollektion innan nästa visning, göra snabbare bedömningar vid ökad belastning på en akutvårdsmottagning."
+      }, 
+      {
+        "label": [
+          "Problemlösning"
+        ], 
+        "name": "Agerar lösningsfokuserat vid motgångar", 
+        "definition": "Att utifrån organisatoriska förutsättningar aktivt hantera motgångar och skapa konstruktiva lösningar för att kunna bibehålla kvalitet och säkerhet i arbetet. \n\nExempelaktiviteter: välja alternativ väg vid trafikhändelse, hitta alternativt transportsätt av turister från flygplats vid fordonsproblem, göra om meny på en restaurang efter felleverans av matvaror, dirigera polisinsatser vid oväntad utveckling vid en stor demonstration."
+      }, 
+      {
+        "label": [
+          "Kontroll"
+        ], 
+        "name": "Behåller kontroll vid ökad press eller belastning i arbetet", 
+        "definition": "Att i samband med ökad arbetsbelastning reglera uttrycket av sina känslor och åsikter för att uppvisa professionalism i både själva arbetsutförandet och i bemötande av andra. Komplexitetsnivån ökar ju starkare reaktioner som behöver regleras och ju fler professionell hänsyn som måste tas (internt och externt). \n\nExempelaktiviteter: jobba metodiskt samt tilltala sina kollegor och kunder på ett bra sätt vid lång kassakö i mataffär, hålla i förhör med en upprörd brottsmisstänkt, jobba metodiskt vid kritiskt produktionsstopp för att laga den produktionsmaskin som gått sönder, agera lugnt och korrekt i samband med hot från en desperat besökare på socialttjänstkontor."
+      }
+    ]
+  }, 
+  {
+    "name": "Relationskompetens", 
+    "defintion": "Att på ett lyhört och/eller inspirerande sätt kommunicera och samspela, med kunder och kollegor, för att nå verksamhetens mål.", 
+    "generic_skills": [
+      {
+        "label": [
+          "Kommunikation"
+        ], 
+        "name": "Förmedlar information så att andra förstår", 
+        "definition": "Att anpassa sitt sätt utifrån ett ställningstagande om vilken typ av kommunikation som passar bäst med tanke på mottagare, situation och syfte. T.ex. vad gäller ordval, språk, innehåll, framtoning och medium. \n\nExempelaktiviteteter: förklara för en ny kollega hur man ställer om arbetsplatsens klockor från sommartid till vintertid, förklara vägen för en förare som kört vilse, skriva en sammanfattning om organisationens nya direktiv till en personalgrupp, beskriva ett komplext forskningsexperiment för allmänheten."
+      }, 
+      {
+        "label": [
+          "Inspiration"
+        ], 
+        "name": "Väcker engagemang hos andra", 
+        "definition": "Att beter sig på ett sätt så att man väcker glädje, inspiration eller intresse hos mottagaren. \n\nExempelaktiviteteter: uppmuntra en kollega som tampas med att kunna avsluta en arbetsuppgift, hålla en predikan, uppmuntra ett idrottslag inför en match, motivera någon att göra en krävande livsstilsförändring."
+      }, 
+      {
+        "label": [
+          "Förhandling"
+        ], 
+        "name": "Får personer av olika ståndpunkt att komma överens", 
+        "definition": "Att genom sitt sätt att agera främja en överenskommelse mellan två eller fler parter. Man kan själv representera den ena parten. \n\nExempelaktiviteteter: be om ursäkt till en kund som klagar på att ha fått vänta för länge, avtala om pris med en grossist, få två anställda att komma överens om semesterschemat, förhandla fram ett kollektivavtal."
+      }, 
+      {
+        "label": [
+          "Påverkan"
+        ], 
+        "name": "Övertygar andra att förändra ståndpunkt eller handlingssätt", 
+        "definition": "Att genom sitt sätt att agera få mottagaren att ändra åsikt eller beteende. \n\nExempelaktiviteteter: övertyga en kollega att hjälpa till med en enkel arbetsuppgift, ge standardargument för att övertyga andra att köpa en populär produkt.\nÖvertyga chefen att köpa in en ny dator till jobbet, genom argumentation övertyga rätten i ett komplext rättsfall."
+      }, 
+      {
+        "label": [
+          "Samarbete"
+        ], 
+        "name": "Arbetar med andra för att gemensamt lösa en uppgift", 
+        "definition": "Att klara av att arbeta med andra för att gemensamt lösa en uppgift, även med personer som tycker olika eller agerar annorlunda än en själv. Det är en högre grad av komplexitet att samarbeta både internt och externt. \n\nExempelaktiviteteter: utbyta relevant information med kollegor vid skiftbyte, arbeta tillsammans med andra för att lägga ett nytt hustak, ansvara för samordningen av olika underleverantörer för ett konsultuppdrag."
+      }, 
+      {
+        "label": [
+          "Inlevelse"
+        ], 
+        "name": "Bemöter andra utifrån deras behov", 
+        "definition": "Att anpassa sitt beteende utifrån en förståelse för någons perspektiv. Detta kräver att man först tar in och överväger andras upplevelser, åsikter och önskemål, för att sedan anpassa sitt agerande med respekt till detta. \n\nExempelaktiviteteter: uppmärksamma att en kund är irriterad över att ha fått vänta och försöka ge service snabbt, ge stöd till en person som fått ett negativt besked, bemöta en psykotisk patient på en psykiatrisk akutvårdsmottagning."
+      }, 
+      {
+        "label": [
+          "Service/omhändertagande"
+        ], 
+        "name": "Agerar aktivt för att hjälpa andra", 
+        "definition": "Att aktivt agera på ett sätt som syftar till att göra situationen bättre för en eller flera mottagare. Mottagare kan vara medarbetare inom verksamheten eller personer som tar del av verksamheten som kunder, patienter, brukare eller liknande. \n\nExempelaktiviteteter: erbjuda en kund en kopp kaffe, hjälpa en kollega med att göra klart en arbetsuppgift, på ett trevligt sätt erbjuda detaljerad information för att en kund lättare ska kunna välja rätt produkt/service, leda hjälpinsatser i ett katastrofområde."
+      }, 
+      {
+        "label": [
+          "Nätverk"
+        ], 
+        "name": "Bygger upp och stärker relationer", 
+        "definition": "Att vårda professionella relationer genom att ta kontakt med andra eller svara upp mot andras kontaktsökande och då tillföra någon form av mervärde för motparten. Exempelvis genom att ge uppmärksamhet, feedback, dela med sig av sin kunskap, efterfråga andras åsikter eller visa uppskattning för andras kunskap, arbetsinsats eller liknande. \n\nExempelaktiviteteter: säga att någon gjort ett bra jobb, svara på mail, ta regelbunden kontakt med befintliga kunder för att visa uppskattning och erbjuda service, få till ett samarbete med representanter för andra organisationer som delvis är skeptiska till den organisation man själv representerar."
+      }
+    ]
+  }, 
+  {
+    "name": "Prioriteringskompetens", 
+    "defintion": "Att effektivt prioritera mellan konkurrerande arbetsuppgifter för att nå verksamhetens mål.", 
+    "generic_skills": [
+      {
+        "label": [
+          "Prioritering"
+        ], 
+        "name": "Prioriterar utifrån helheten vad som ska göras och i vilken ordning", 
+        "definition": "Att välja en eller flera moment mellan ett större antal moment som konkurrerar om tid eller resurser. Att agera i enlighet med det som bedöms som mest prioriterat utifrån en helhetsbild. \n\nExempelaktiviteter: välja vilket mail man ska svara på först bland ett stort antal inkomna, välja vilket konsultuppdrag som man ska ta sig an, när man inte kan ta alla, koordinera akutinsatser i samband med en stor olycka i ett storstadsområde."
+      }, 
+      {
+        "label": [
+          "Simultankapacitet"
+        ], 
+        "name": "Hanterar flera arbetsuppgifter eller information parallellt", 
+        "definition": "Att växla mellan flera arbetsuppgifter eller informationskällor med bibehållen kvalitet och intensitet i arbetet. \n\nExempelaktiviteter: avläsa vägskyltar samtidigt som man kör i 50 km/h, jobba i ett restaurangkök vid lunchrusning, övervaka radar och radiokommunikation vid tät trafikering för att kunna hålla reda på flera flygplan samtidigt."
+      }, 
+      {
+        "label": [
+          "Beslut"
+        ], 
+        "name": "Tar självständiga beslut när det krävs", 
+        "definition": "Att utifrån mandat självständigt och med relevant skyndsamhet göra bedömningar eller ta de beslut som krävs för arbetet. \n\nExempelaktiviteter: avgöra om en anställd har goda skäl att vara försenad, besluta om lämplig typ av kompensation utifrån en kunds klagomål, besluta om åtgärder i samband med rökdykning vid brandsläckning av ett brinnande hus."
+      }, 
+      {
+        "label": [
+          "Resultat"
+        ], 
+        "name": "Väljer vägen som leder till bäst resultat", 
+        "definition": "Att agera i enlighet med vad man bedömer kunna ge störst mervärde för verksamheten på sikt. Graden av komplexitet ökar ju fler faktorer som vägs in och ju längre tidsperspektiv man har. \n\nExempelaktiviteter: sätta lägre pris på varor som varit svåra att sälja, se till att ett arbetsmöte handlar om det som är mest väsentligt, skapa en plan för sammanslagning av två organisationer över en tre-årsperiod, skapa en 10-årig affärsplan för en organisation."
+      }, 
+      {
+        "label": [
+          "Målfokus"
+        ], 
+        "name": "Lägger tid på att följa upp mål", 
+        "definition": "Att följa upp vad som bidrar till att målen uppfylls, i syfte att kunna prioritera strategiskt fortsättningsvis. Graden av komplexitet ökar ju fler faktorer som vägs in. \n\nExempelaktiviteter: jämföra försäljningsstatistik mellan olika försäljare, sammanställa feedback rörande nöjdhet från kunder, genomföra analys av vad som leder till framgångsrik vård på ett sjukhus."
+      }
+    ]
+  }, 
+  {
+    "name": "Organiseringskompetens", 
+    "defintion": "Att utifrån givna krav på resultat, kunna planera och strukturera arbetet.", 
+    "generic_skills": [
+      {
+        "label": [
+          "Detalj"
+        ], 
+        "name": "Uppmärksammar detaljer för att säkerställa kvalitet/säkerhet", 
+        "definition": "Att göra det som krävs för att säkerställa att arbetet utförs med tillräckligt hög kvalitet eller säkerhet. Kontrollerar arbetet med detaljnoggrannhet. \n\nExempelaktiviteter: kontrollera att dörrarna till en byggnad är låsta, bedöma hållbarheten hos livsmedel, övervaka maskinfunktion i en automatiserad produktionslinje, granska om ett avgörande i ett komplext rättsfall har gjorts på rätt sätt."
+      }, 
+      {
+        "label": [
+          "Disciplin"
+        ], 
+        "name": "Arbetar uthålligt över tid", 
+        "definition": "Att agera för att slutföra sina åtaganden. Att man fortsätter jobba tills man är klar, även om arbetet upplevs som tråkigt eller krävande. Vid lägre komplexitetsnivå handlar det om att man helt enkelt måste ta sig igenom en stor mängd av arbete utan genvägar. På hög komplexitetsnivå handlar det inte bara om en stor mängd arbete utan också om arbete av högre komplexitet eller över en längre tidsrymd. \n\nExempelaktiviteter: gräsklippning i en stor park, manuell postutdelning, utföra ett kirurgiskt ingrepp som tar lång tid, skriva en roman."
+      }, 
+      {
+        "label": [
+          "Ordning"
+        ], 
+        "name": "Bidrar till ordning och reda", 
+        "definition": "Att agera för att skapa ordning som möjliggör att fortsatt arbete kan utföras på ett praktiskt sätt. Exempelvis att hålla ordning på arbetsmaterial och utrustning, skapa ordning i data eller information samt skapa system för att hålla ordning. Vid lägre komplexitetsnivå följer man befintliga system för ordning och reda. Från medelnivå och uppåt skapar man ordning i mer komplexa fall eller bidrar i någon mån till att skapa system för ordning och reda. \n\nExempelaktiviteter: sortera saker i rätt förvaringsplats, skapa ett system för hur varor ska ordnas på ett lager, dokumentera resultatet av en brottsplatsundersökning, sköta budgeten för ett stort företag."
+      }, 
+      {
+        "label": [
+          "Planering"
+        ], 
+        "name": "Planerar och arbetar systematiskt", 
+        "definition": "Att organisera sitt arbete utifrån en tidsplan där varje moment planeras tydligt utifrån hur lång tid som krävs för momenten, när de måste vara klara samt utifrån eventuell resursförbrukning. Graden av komplexitet ökar ju svårare det är att förutsäga planeringen och ju fler parametrar man måste ta hänsyn till. \n\nExempelaktiviteter: använda en månadskalender för planering av möten, planera inköp av råvaror till restaurang, skapa ett system för hur kundärenden ska bokas in inom en stor organisation, planera en stor konferens med flera parallella föredrag och aktiviteter."
+      }, 
+      {
+        "label": [
+          "Instruktion/rutin"
+        ], 
+        "name": "Följer eller utformar instruktioner och rutiner", 
+        "definition": "Att hålla sig till givna instruktioner/rutiner om hur arbetet ska utföras. Om arbetet kräver det kan det även handla om att utforma instruktioner/rutiner för hur arbetet ska utföras på ett sätt som gynnar verksamheten. Vid lägre komplexitetsnivå följer man enkla instruktioner/rutiner. På högre komplexitetsnivå följer man eller skapar komplexa instruktioner/rutiner. \n\nExempelaktiviteter: följa trafikregler, utforma en rutin för vilan och mellanmål på förskola, följa säkerhetsföreskrifter på byggarbetsplats, uttolka komplex lagtext för ställningstagande i ett enskilt fall."
+      }
+    ]
+  }, 
+  {
+    "name": "Utvecklingskompetens", 
+    "defintion": "Att pröva nya tankar och handlingssätt för att bidra till verksamhetens utveckling.", 
+    "generic_skills": [
+      {
+        "label": [
+          "Innovation"
+        ], 
+        "name": "Söker och vågar prova nya perspektiv och idéer", 
+        "definition": "Att hitta nya lösningar eller angreppsätt. Att tänka utanför givna ramar för att undersöka om det finns ett mer effektivt angreppssätt. Generera och prova nya och innovativa lösningar. \n\nExempelaktiviteter: anpassa träningsutrusning för att passa en kunds behov, tänka ut hur arbetsuppgifter kan förändras för att bli mer intressanta för en arbetstagare, utforma ett mer greppvänligt handtag till ett verktyg, uppfinna en ny typ av syntetisk fiber."
+      }, 
+      {
+        "label": [
+          "Verksamhetsutveckling"
+        ], 
+        "name": "Startar och driver förändringsarbete", 
+        "definition": "Att föreslå och ta egna initiativ för att driva förändringar på arbetsplatsen utifrån verksamhetens målsättning och intresse. \n\nExempelaktiviteter: föreslå inköp av en specifik typ av kopieringsmaskin till ett kontor, föreslå förändringar för att göra verksamhetens hemsida mer användarvänlig för kunderna, införa nya kontrollsystem för en produktionsanläggning för livsmedel, genomföra organisationsförändringar för att nå ökad lönsamhet."
+      }, 
+      {
+        "label": [
+          "Egen utveckling"
+        ], 
+        "name": "Förnyar eller förbättrar kontinuerligt sitt sätt att arbeta", 
+        "definition": "Att göra det som krävs för att kontinuerligt förbättra eller bibehålla kunskapsnivå och yrkesskicklighet. Exempelvis genom att använda sig av feedback om ens arbete, lära sig nya arbetssätt och liknande. \n\nExempelaktiviteter: delta i kompetensutvecklingsinsatser som anordnas inom verksamheten, ta till sig feedback från chef om hur ens arbetssätt kan förbättras, efterfråga tips från en kollega på hur man kan lösa en viss uppgift på ett bättre sätt, se till att hålla sig uppdaterad med utvecklingen inom sitt arbetsfält genom att ta del av fackskrifter eller forskningsartiklar."
+      }, 
+      {
+        "label": [
+          "Analys/förbättring"
+        ], 
+        "name": "Upptäcker utvecklingspotential", 
+        "definition": "Att vända upp-och-ner och in-och-ut på problem för att upptäcka utvecklingsmöjligheter. Att integrera tillsynes orelaterad information och överväga flera olika alternativ som andra kan missa. \n\nExempelaktiviteter: identifiera en läcka genom att titta under en maskin, identifiera vad som kan vara de viktigaste skälen till varför kunderna är missnöjda med en produkt, förutse långsiktiga prestationsproblem för ett nytt datorsystem."
+      }
+    ]
+  }
+]
