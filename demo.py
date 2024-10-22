@@ -12,7 +12,7 @@ import itertools
 
 from occupation_class import create_occupation_index
 from create_options import create_options
-from get_descriptions_skills import get_descriptions_skills
+from get_descriptions_skills import get_descriptions_skills, get_not_deprecated_occupations
 
 @st.cache_data
 def import_data(filename):
@@ -40,14 +40,41 @@ def show_initial_information():
 def change_state_chosen_background():
     st.session_state.chosen_background = False
     st.session_state.show_more_similar_occupations = False
+    st.session_state.show_cv_helper = False
 
 def change_state_show_more_similar_occupations():
     st.session_state.show_more_similar_occupations = True
+    st.session_state.show_cv_helper = False
+
+def change_state_show_cv_helper(id_selected, background, level_of_experience, words_of_taxonomy, words_of_experience, words_of_interest):
+    if not background == "conconcatenated":
+        if background not in st.session_state.stored_backgrounds:
+            st.session_state.stored_backgrounds[background] = level_of_experience
+
+        if background not in st.session_state.valid_ids:
+            st.session_state.stored_backgrounds[background] = level_of_experience
+
+        st.session_state.cv_id = id_selected
+
+        st.session_state.words_of_experience.extend(words_of_experience)
+        st.session_state.words_of_experience = list(set(st.session_state.words_of_experience))
+
+        st.session_state.words_of_interest.extend(words_of_interest)
+        st.session_state.words_of_interest = list(set(st.session_state.words_of_interest))
+
+        if words_of_taxonomy:
+            st.session_state.stored_taxonomy.extend(words_of_taxonomy)
+            st.session_state.stored_taxonomy = list(set(st.session_state.stored_taxonomy))
+
+    st.session_state.show_cv_helper = True
 
 def initiate_session_state():
     if "chosen_background" not in st.session_state:
         st.session_state.chosen_background = False
         st.session_state.show_more_similar_occupations = False
+        st.session_state.show_cv_helper = False
+        st.session_state.cv_id = ""
+        st.session_state.selected_generic_skills = False
         st.session_state.stored_backgrounds = {}
         st.session_state.stored_and_showed_ssyk = []
         st.session_state.stored_taxonomy = []
@@ -55,13 +82,16 @@ def initiate_session_state():
         st.session_state.words_of_interest = []
         st.session_state.showed_similar_occupations = []
         st.session_state.selected_region = ""
+        st.session_state.choosen_generic_skills = []
 
 def cache_data():
     st.session_state.occupationdata = import_occupationdata()
     st.session_state.definitions = import_data("id_definitions.json")
     st.session_state.taxonomy = import_data("id_taxonomy_wheel.json")
     st.session_state.options_field, st.session_state.options_ssyk_level_4, st.session_state.options_occupations, st.session_state.options_titles = import_options()
-    st.session_state.valid_ids = list(st.session_state.options_occupations.values())
+    valid_ids = list(st.session_state.options_occupations.values())
+    not_deprecated = get_not_deprecated_occupations()
+    st.session_state.valid_ids = [id for id in valid_ids if id in not_deprecated]
 
     st.session_state.skills = import_data("ID_skills.json")
     st.session_state.forecasts = import_data("forecast.json")
@@ -72,6 +102,7 @@ def cache_data():
     st.session_state.field_of_study_educational_focus = import_data("field_of_study_educational_focus.json")
     st.session_state.field_of_study_educational_focus_skills = import_data("field_of_study_educational_focus_skills.json")
     st.session_state.educational_requirements = import_data("occupation_id_educational_requirements.json")
+    st.session_state.generic_skills = import_data("generic_skill_groups.json")
 
 def create_valid_options(fields, groups, occupations, titles):
     output = {}
@@ -100,7 +131,8 @@ def create_small_wordcloud(skills):
 def create_short_rest_of_definition_and_taxonomy_text(id):
     description, taxonomy = get_descriptions_skills(id)
     taxonomy_wheel = st.session_state.taxonomy.get(id)
-    taxonomy.extend(taxonomy_wheel)
+    if taxonomy_wheel:
+        taxonomy.extend(taxonomy_wheel)
     taxonomy = taxonomy[0:20]
     taxonomy_text = taxonomy[0:5]
     definition_text = description.split("\n")
@@ -223,7 +255,7 @@ def show_info_selected(description):
     definition = f"<p style='font-size:10px;'>{description}</p>"
     st.markdown(definition, unsafe_allow_html=True)
 
-def show_info_similar(short_definition, rest_of_definition, taxonomy, id):
+def show_info_similar(short_definition, rest_of_definition, taxonomy, id, cv_data):
     col1, col2 = st.columns(2)
 
     with col1:
@@ -251,7 +283,9 @@ def show_info_similar(short_definition, rest_of_definition, taxonomy, id):
         rest_of_definition = f"<p style='font-size:14px;'>{rest_of_definition}</p>"
         st.markdown(rest_of_definition, unsafe_allow_html=True)
 
-        st.button(f"Hjälp med CV för {st.session_state.occupationdata[id].name}",)
+        cv_data_button = (id,) + cv_data
+
+        st.button(f"Hjälp med CV för {st.session_state.occupationdata[id].name}", on_click = change_state_show_cv_helper, args = cv_data_button)
 
 def display_saved_data():
     with st.sidebar:
@@ -448,7 +482,7 @@ def create_venn(indata):
         pass
     return plt
 
-def compare_background_similar(selected, id_similar, selected_words_of_experience, selected_words_of_interest):
+def compare_background_similar(selected, id_similar, selected_words_of_experience, selected_words_of_interest, cv_data):
         valid_similar = {}
         for i in id_similar:
             valid_similar[st.session_state.occupationdata[i].name] = i
@@ -471,9 +505,9 @@ def compare_background_similar(selected, id_similar, selected_words_of_experienc
             st.divider()
 
             short_definition, rest_of_definition, taxonomy_text, taxonomy = create_short_rest_of_definition_and_taxonomy_text(selected_similar_id)
-            show_info_similar(short_definition, rest_of_definition, taxonomy[0:5], selected_similar_id)
+            show_info_similar(short_definition, rest_of_definition, taxonomy[0:5], selected_similar_id, cv_data)
 
-def show_similar_occupation(selected, selected_region, all_similar, selected_words_of_experience, selected_words_of_interest):
+def show_similar_occupation(selected, selected_region, all_similar, selected_words_of_experience, selected_words_of_interest, cv_data):
 
     all_selected_words = selected_words_of_interest + selected_words_of_experience
 
@@ -517,7 +551,7 @@ def show_similar_occupation(selected, selected_region, all_similar, selected_wor
             col2.link_button(name_with_addnumbers_forecast, link, help = help_text)
         number_of_similar += 1
 
-    compare_background_similar(selected, list(all_similar.keys()), selected_words_of_experience, selected_words_of_interest)
+    compare_background_similar(selected, list(all_similar.keys()), selected_words_of_experience, selected_words_of_interest, cv_data)
 
 def post_selected_ssyk_level_4(id_ssyk_level_4):
     ssyk_level_4_definition = st.session_state.definitions.get(id_ssyk_level_4)
@@ -589,14 +623,12 @@ def post_selected_occupation(id_occupation):
         link_name = f"Visa annonser för {name_with_addnumbers_forecast}"
         st.link_button(link_name, link, help = relevant_forecast[2])
 
-        st.button(f"Hjälp med CV för {st.session_state.occupationdata[id_occupation].name}",)
+        selected_level_of_experience = st.radio(
+            f"Hur lång erfarenhet har du som {st.session_state.occupationdata[id_occupation].name}?",
+            ["kort", "vet inte", "lång"],
+            index = 1, horizontal = True,)
 
     st.divider()
-
-    selected_level_of_experience = st.radio(
-        f"Hur lång erfarenhet har du som {st.session_state.occupationdata[id_occupation].name}?",
-        ["kort", "vet inte", "lång"],
-        index = 1, horizontal = True,)
 
     selected_interest_area = st.radio(
         f"Hur intresserad är du av andra yrken inom yrkesområdet {st.session_state.occupationdata[related_fields[0]].name}?",
@@ -610,11 +642,20 @@ def post_selected_occupation(id_occupation):
         f"Här kommer en lista på några ord från annonser för yrkesbenämningar som på ett eller annat sätt liknar det du tidigare har jobbat med. Välj ett eller flera ord som beskriver vad du är intresserad av.",
         (words_of_interest),)
 
-    st.button("Lägg till fler bakgrunder", on_click = save_selections, args = (id_occupation, selected_level_of_experience, selected_words_of_experience, selected_words_of_interest, selected_words_of_taxonomy, list(all_similar.keys())))
+    cv_data = (id_occupation, selected_level_of_experience, selected_words_of_taxonomy, selected_words_of_experience, selected_words_of_interest)
 
-    selected = [st.session_state.occupationdata[id_occupation].name, list(st.session_state.skills.get(id_occupation).keys())]
+    cv_data_button = (id_occupation, id_occupation, selected_level_of_experience, selected_words_of_taxonomy, selected_words_of_experience, selected_words_of_interest)
 
-    show_similar_occupation(selected, selected_region, all_similar, selected_words_of_experience,selected_words_of_interest)
+    col1, col2 = st.columns(2)
+
+    col1.button("Spara och lägg till annan bakgrund", on_click = save_selections, args = (id_occupation, selected_level_of_experience, selected_words_of_experience, selected_words_of_interest, selected_words_of_taxonomy, list(all_similar.keys())))
+
+    col2.button(f"Hjälp med CV för {st.session_state.occupationdata[id_occupation].name}", on_click = change_state_show_cv_helper, args = cv_data_button)
+
+    if st.session_state.skills.get(id_occupation):
+        selected = [st.session_state.occupationdata[id_occupation].name, list(st.session_state.skills.get(id_occupation).keys())]
+
+        show_similar_occupation(selected, selected_region, all_similar, selected_words_of_experience, selected_words_of_interest, cv_data)
 
 def choose_ssyk_level_4(field_id):
     ssyk_level_4_options = {}
@@ -736,11 +777,13 @@ def choose_educational_background():
                         "Begränsa sökområde till ett län",
                         (valid_regions), index = None,)
 
-                    st.button("Lägg till fler bakgrunder", on_click = save_selections_education, args = (selected_educational_focus, selected_level_of_experience, selected_words_of_experience_education, list(similar_occupations_with_names.values())))
+                    st.button("Spara och lägg till annan bakgrund", on_click = save_selections_education, args = (selected_educational_focus, selected_level_of_experience, selected_words_of_experience_education, list(similar_occupations_with_names.values())))
 
                 selected = [selected_educational_focus, list(skills.keys())]
 
-                show_similar_occupation(selected, selected_region, all_similar, selected_words_of_experience_education, selected_words_of_interest_education)
+                cv_data = (selected_educational_focus, selected_level_of_experience, None, selected_words_of_experience_education, selected_words_of_interest_education)
+
+                show_similar_occupation(selected, selected_region, all_similar, selected_words_of_experience_education, selected_words_of_interest_education, cv_data)
 
 def conconcatenate_stored_background():
     conconatenated_skills = {}
@@ -757,10 +800,10 @@ def conconcatenate_stored_background():
         conconatenated_name.append(background_name)
         if level_of_experience == "kort":
             experience_faktor = 0.5
-        elif level_of_experience == "vet inte":
-            experience_faktor = 1
         elif level_of_experience == "lång":
             experience_faktor = 1.5
+        else:
+            experience_faktor = 1
         skills = {}
         for k, v in bakground_skills.items():
             skills[k] = v * experience_faktor
@@ -824,24 +867,114 @@ def show_hidden_competences_and_more_similar_occupations():
         if s in st.session_state.valid_ids:
             all_similar[s] = st.session_state.skills.get(s)
     with st.sidebar:
-        samlad = f"<p style='font-size:10px;'>Din samlade bakgrund</p>"
-        st.markdown(samlad, unsafe_allow_html=True)
+        background_names = st.session_state.conconcatenate_stored_background[0]
+        background_names_string = "<br />".join(background_names)
+        background_names_string = f"Ordmoln utifrån din bakgrund som/inom:<br />{background_names_string}"
+        background_text = f"<p style='font-size:10px;'>{background_names_string}</p>"
+        st.markdown(background_text, unsafe_allow_html=True)
+
         create_wordcloud(st.session_state.conconcatenate_stored_background[1])
-    conconcatenate_name = "Din samlade bakgrund"
+    conconcatenate_name = "Utifrån din tidigare bakgrund"
     list_conconcatenate_stored_background = [conconcatenate_name, list(st.session_state.conconcatenate_stored_background[1].keys())]
-    show_similar_occupation(list_conconcatenate_stored_background, None, all_similar, st.session_state.words_of_experience, st.session_state.words_of_interest)
+    cv_data = ("conconcatenated", "conconcatenated", "conconcatenated", "conconcatenated", "conconcatenated")
+    show_similar_occupation(list_conconcatenate_stored_background, None, all_similar, st.session_state.words_of_experience, st.session_state.words_of_interest, cv_data)
+
+def save_selected_generic():
+    for key in list(st.session_state.all_generic_skills_keys_definition.keys()):
+        if st.session_state[key]:
+            st.session_state.choosen_generic_skills.append(key)
+    st.session_state.selected_generic_skills = True
+
+def choose_generic_skills_and_cv_helper():
+    if st.session_state.selected_generic_skills == False:
+
+
+        st.logo("af-logotyp-rgb-540px.jpg")
+        st.title("Generella kompetenser")
+        initial_text = "Kompetenser som gäller i princip alla yrken. Ofta kallas de också mjuka kompetenser eller soft skills. Här kan du du utforska och förstå de generella kompetenserna. Kan vara viktiga att lyfta fram i ett CV då många arbetsgivare värderar dessa högt."
+        st.markdown(f"<p style='font-size:16px;'>{initial_text}</p>", unsafe_allow_html=True)
+
+        more_text = "Välj tre stycken generella kompetenser som kännetecknar dig mest i olika jobbsituationer."
+        st.markdown(f"<p style='font-size:16px;'>{more_text}</p>", unsafe_allow_html=True)
+        
+        st.divider()
+
+        st.session_state.all_generic_skills_keys_definition = {}
+        for i in st.session_state.generic_skills:
+            number_of_generic_skills = 0
+            st.write(f"**{i['name']}**  - {i['defintion']}")
+            col1, col2 = st.columns(2)
+            for g in i["generic_skills"]:
+                keyname = g['name']
+                st.session_state.all_generic_skills_keys_definition[g['name']] = [g['label'][0], g['definition']]
+                if (number_of_generic_skills % 2) == 0:
+                    col1.checkbox(f"**{g['label'][0]}** - {g['name']}", help = f"{g['definition']}", key = keyname)
+                else:
+                    col2.checkbox(f"**{g['label'][0]}** - {g['name']}", help = f"{g['definition']}", key = keyname)
+                number_of_generic_skills += 1
+            st.divider()
+
+        st.button("Gå vidare", on_click = save_selected_generic)
+
+    else:
+        st.logo("af-logotyp-rgb-540px.jpg")
+        st.title("Input till CV-hjälpare")
+        initial_text = ""
+        st.markdown(f"<p style='font-size:12px;'>{initial_text}</p>", unsafe_allow_html=True)
+
+        more_text = ""
+        st.markdown(f"<p style='font-size:12px;'>{more_text}</p>", unsafe_allow_html=True)
+
+        st.button("Gå tillbaka", on_click = change_state_chosen_background)
+
+        col1, col2 = st.columns(2)
+        with col1:
+            conconcatenate_stored_background()
+            background_names = st.session_state.conconcatenate_stored_background[0]
+            background_names_string = "  \n".join(background_names)
+            background_names_string = f"Du har en bakgrund som/inom:  \n{background_names_string}"
+            st.write(background_names_string)
+
+            if st.session_state.stored_taxonomy or st.session_state.words_of_experience:
+                st.write("Du kan redan:")
+                st.write(st.session_state.stored_taxonomy)
+                st.write(st.session_state.words_of_experience)
+
+            if st.session_state.choosen_generic_skills:
+                st.write("Dina generella kompetenser:")
+                st.write(st.session_state.choosen_generic_skills)
+
+            if st.session_state.words_of_experience:
+                st.write("Du är intresserad av:")
+                st.write(st.session_state.words_of_experience)
+
+            st.write("Du kanske kan redan:")
+            list_conconcatenate_stored_background = list(st.session_state.conconcatenate_stored_background[1].keys())
+            st.write(list_conconcatenate_stored_background)
+
+        with col2:
+            id = st.session_state.cv_id
+            name = st.session_state.occupationdata[id].name
+            skills = st.session_state.skills.get(id)
+            list_skills = list(skills.keys())
+            st.write("Du vill söka jobb som:")
+            st.write(name)
+            st.write("Många arbetsgivare frågar efter nyckelord som finns i listan nedan")
+            st.write(list_skills)
 
 def choose_background():
-    if len(st.session_state.stored_backgrounds) >= 2 and st.session_state.show_more_similar_occupations == False:
+    if len(st.session_state.stored_backgrounds) >= 2 and st.session_state.show_more_similar_occupations == False and st.session_state.show_cv_helper == False:
         st.button("Använd annons- och utbildningsdata för att hitta fler liknande yrken", on_click = change_state_show_more_similar_occupations)
 
-    if st.session_state.show_more_similar_occupations == True:
+    if st.session_state.show_more_similar_occupations == True and st.session_state.show_cv_helper == False:
+        show_initial_information()
         show_hidden_competences_and_more_similar_occupations()
 
-    if st.session_state.chosen_background == True:
+    if st.session_state.chosen_background == True and st.session_state.show_cv_helper == False:
         st.button("Lägga till fler yrkes- eller utbildningsbakgrunder", on_click = change_state_chosen_background)
 
-    if st.session_state.chosen_background == False and st.session_state.show_more_similar_occupations == False:
+    if st.session_state.chosen_background == False and st.session_state.show_more_similar_occupations == False and st.session_state.show_cv_helper == False:
+        show_initial_information()
         occupational_or_educational = st.radio(
                     f"Välj om du vill utgå från en yrkes- eller utbildningsbakgrund",
                     ["yrkesbakgrund", "utbildningsbakgrund"],
@@ -853,9 +986,11 @@ def choose_background():
 
         if occupational_or_educational == "utbildningsbakgrund":
             choose_educational_background()
+    
+    if st.session_state.show_cv_helper == True:
+        choose_generic_skills_and_cv_helper()
 
 def main ():
-    show_initial_information()
     initiate_session_state()
     cache_data()
     choose_background()
