@@ -1,9 +1,10 @@
 import re
 import json
 import requests
+import streamlit as st
 
 def get_api(query):
-    header = {"api-key": "admin-3|kvalificerad-yrkesfiskare-3"}
+    header = {"api-key": st.secrets.api_key}
     response = requests.get(url = query, headers = header)
     data = response.text
     json_data = json.loads(data)
