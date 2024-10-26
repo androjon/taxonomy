@@ -71087,30 +71087,6 @@
         ]
       }, 
       {
-        "preferred_label": "Produktägare, IT", 
-        "id": "pm44_MPD_1wd", 
-        "title": [
-          {
-            "preferred_label": "Product owner"
-          }, 
-          {
-            "preferred_label": "Produktägare"
-          }, 
-          {
-            "preferred_label": "Teknisk produktägare"
-          }, 
-          {
-            "preferred_label": "Technical product owner"
-          }
-        ], 
-        "area": [], 
-        "ssyk": [
-          {
-            "id": "UxT1_tPF_Kbg"
-          }
-        ]
-      }, 
-      {
         "preferred_label": "Bryggeritekniker", 
         "id": "bpHr_Kbh_b8v", 
         "title": [
