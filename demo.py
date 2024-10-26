@@ -103,6 +103,8 @@ def cache_data():
     st.session_state.field_of_study_educational_focus_skills = import_data("field_of_study_educational_focus_skills.json")
     st.session_state.educational_requirements = import_data("occupation_id_educational_requirements.json")
     st.session_state.generic_skills = import_data("generic_skill_groups.json")
+    st.session_state.green_skills = import_data("green_skills.json")
+    st.session_state.digital_skills = import_data("digital_skills.json")
 
 def create_valid_options(fields, groups, occupations, titles):
     output = {}
@@ -128,12 +130,26 @@ def create_small_wordcloud(skills):
     st.pyplot(plt)
 
 @st.cache_data
+def taxonomy_with_green_digital(taxonomy):
+    output = []
+    digital = " \U0001F310"
+    green = " \U0001F331"
+    for t in taxonomy:
+        if t in st.session_state.green_skills:
+            t = f"{t} {green}"
+        if t in st.session_state.digital_skills:
+            t = f"{t} {digital}"
+        output.append(t)
+    return output
+
+@st.cache_data
 def create_short_rest_of_definition_and_taxonomy_text(id):
-    description, taxonomy = get_descriptions_skills(id)
+    description, taxonomy = get_descriptions_skills(id, st.session_state.green_skills, st.session_state.digital_skills)
     taxonomy_wheel = st.session_state.taxonomy.get(id)
     if taxonomy_wheel:
         taxonomy.extend(taxonomy_wheel)
     taxonomy = taxonomy[0:20]
+    taxonomy = taxonomy_with_green_digital(taxonomy)
     taxonomy_text = taxonomy[0:5]
     definition_text = description.split("\n")
     short_definition = definition_text[0]
@@ -285,7 +301,7 @@ def show_info_similar(short_definition, rest_of_definition, taxonomy, id, cv_dat
 
         cv_data_button = (id,) + cv_data
 
-        st.button(f"Hjälp med CV för {st.session_state.occupationdata[id].name}", on_click = change_state_show_cv_helper, args = cv_data_button)
+        st.button(f"Hjälp med CV för {st.session_state.occupationdata[id].name}", on_click = change_state_show_cv_helper, args = cv_data_button, icon = ":material/demography:")
 
 def display_saved_data():
     with st.sidebar:
@@ -546,9 +562,9 @@ def show_similar_occupation(selected, selected_region, all_similar, selected_wor
         else:
             help_text = relevant_forecast[2]
         if (number_of_similar % 2) == 0:
-            col1.link_button(name_with_addnumbers_forecast, link, help = help_text)
+            col1.link_button(name_with_addnumbers_forecast, link, help = help_text, icon = ":material/link:")
         else:
-            col2.link_button(name_with_addnumbers_forecast, link, help = help_text)
+            col2.link_button(name_with_addnumbers_forecast, link, help = help_text, icon = ":material/link:")
         number_of_similar += 1
 
     compare_background_similar(selected, list(all_similar.keys()), selected_words_of_experience, selected_words_of_interest, cv_data)
@@ -621,7 +637,7 @@ def post_selected_occupation(id_occupation):
         name_with_addnumbers_forecast,  name_with_forecast = add_forecast_addnumbers_occupation(id_occupation, related_groups, regional_id, relevant_forecast[0], keywords)
         link = create_link(related_groups, keywords, regional_id)
         link_name = f"Visa annonser för {name_with_addnumbers_forecast}"
-        st.link_button(link_name, link, help = relevant_forecast[2])
+        st.link_button(link_name, link, help = relevant_forecast[2], icon = ":material/link:")
 
         selected_level_of_experience = st.radio(
             f"Hur lång erfarenhet har du som {st.session_state.occupationdata[id_occupation].name}?",
@@ -648,9 +664,9 @@ def post_selected_occupation(id_occupation):
 
     col1, col2 = st.columns(2)
 
-    col1.button("Spara och lägg till annan bakgrund", on_click = save_selections, args = (id_occupation, selected_level_of_experience, selected_words_of_experience, selected_words_of_interest, selected_words_of_taxonomy, list(all_similar.keys())))
+    col1.button("Spara och lägg till annan bakgrund", icon = ":material/save:", on_click = save_selections, args = (id_occupation, selected_level_of_experience, selected_words_of_experience, selected_words_of_interest, selected_words_of_taxonomy, list(all_similar.keys())))
 
-    col2.button(f"Hjälp med CV för {st.session_state.occupationdata[id_occupation].name}", on_click = change_state_show_cv_helper, args = cv_data_button)
+    col2.button(f"Hjälp med CV för {st.session_state.occupationdata[id_occupation].name}", on_click = change_state_show_cv_helper, args = cv_data_button, icon = ":material/demography:")
 
     if st.session_state.skills.get(id_occupation):
         selected = [st.session_state.occupationdata[id_occupation].name, list(st.session_state.skills.get(id_occupation).keys())]
@@ -688,7 +704,7 @@ def choose_occupational_background():
         exclude_groups = st.toggle("inkludera yrkesgrupper", value = False)
 
     with col2:
-        exclude_occupations = st.toggle("inkludera yrkesbenämningar", value = False)
+        exclude_occupations = st.toggle("inkludera yrkesbenämningar", value = True)
         exclude_titles = st.toggle("inkludera jobbtitlar", value = False)
 
     valid_options_dict = create_valid_options(exclude_fields, exclude_groups, exclude_occupations, exclude_titles)
@@ -777,7 +793,7 @@ def choose_educational_background():
                         "Begränsa sökområde till ett län",
                         (valid_regions), index = None,)
 
-                    st.button("Spara och lägg till annan bakgrund", on_click = save_selections_education, args = (selected_educational_focus, selected_level_of_experience, selected_words_of_experience_education, list(similar_occupations_with_names.values())))
+                    st.button("Spara och lägg till annan bakgrund", on_click = save_selections_education, icon = ":material/save:", args = (selected_educational_focus, selected_level_of_experience, selected_words_of_experience_education, list(similar_occupations_with_names.values())))
 
                 selected = [selected_educational_focus, list(skills.keys())]
 
@@ -914,7 +930,7 @@ def choose_generic_skills_and_cv_helper():
                 number_of_generic_skills += 1
             st.divider()
 
-        st.button("Gå vidare", on_click = save_selected_generic)
+        st.button("Gå vidare", on_click = save_selected_generic, icon = ":material/arrow_forward:")
 
     else:
         st.logo("af-logotyp-rgb-540px.jpg")
@@ -925,7 +941,7 @@ def choose_generic_skills_and_cv_helper():
         more_text = ""
         st.markdown(f"<p style='font-size:12px;'>{more_text}</p>", unsafe_allow_html=True)
 
-        st.button("Gå tillbaka", on_click = change_state_chosen_background)
+        st.button("Gå tillbaka", on_click = change_state_chosen_background, icon = ":material/home:")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -964,14 +980,14 @@ def choose_generic_skills_and_cv_helper():
 
 def choose_background():
     if len(st.session_state.stored_backgrounds) >= 2 and st.session_state.show_more_similar_occupations == False and st.session_state.show_cv_helper == False:
-        st.button("Använd annons- och utbildningsdata för att hitta fler liknande yrken", on_click = change_state_show_more_similar_occupations)
+        st.button("Använd annons- och utbildningsdata för att hitta fler liknande yrken", on_click = change_state_show_more_similar_occupations, icon = ":material/experiment:")
 
     if st.session_state.show_more_similar_occupations == True and st.session_state.show_cv_helper == False:
         show_initial_information()
         show_hidden_competences_and_more_similar_occupations()
 
     if st.session_state.chosen_background == True and st.session_state.show_cv_helper == False:
-        st.button("Lägga till fler yrkes- eller utbildningsbakgrunder", on_click = change_state_chosen_background)
+        st.button("Lägga till fler yrkes- eller utbildningsbakgrunder", on_click = change_state_chosen_background, icon = ":material/add:")
 
     if st.session_state.chosen_background == False and st.session_state.show_more_similar_occupations == False and st.session_state.show_cv_helper == False:
         show_initial_information()
