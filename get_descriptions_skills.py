@@ -48,7 +48,7 @@ def get_not_deprecated_occupations():
         not_deprecated.append(i["id"])
     return not_deprecated
 
-def get_descriptions_skills(id):
+def get_descriptions_skills(id, green_skills, digital_skills):
     hitta_yrken_descriptions = import_data("occupation_id_hitta_yrken_descriptions.json")
     query = f"https://api-jobtech-taxonomy-api-prod-write.prod.services.jtech.se/v1/taxonomy/graphql?query=%0Aquery%20descriptions_skills%20%7B%0A%20%20concepts(version%3A%20%22next%22,%20id%3A%20%22{id}%22)%20%7B%0A%20%20%20%20id%0A%20%20%20%20preferred_label%0A%20%20%20%20definition%0A              narrow_match(type%3A%20%22esco-occupation%22)%7B%0A%20%20%20%20%20%20preferred_label%0A%20%20%20%20%20%20id%0A%20%20%20%20%20%20definition%0A%20%20%20%20%7D%0A%20%20%20%20broad_match(type%3A%20%22esco-occupation%22)%7B%0A%20%20%20%20%20%20preferred_label%0A%20%20%20%20%20%20id%0A%20%20%20%20%20%20definition%0A%20%20%20%20%7D%0A%20%20%20%20exact_match(type%3A%20%22esco-occupation%22)%7B%0A%20%20%20%20%20%20preferred_label%0A%20%20%20%20%20%20id%0A%20%20%20%20%20%20definition%0A%20%20%20%20%7D%0A%20%20%20%20close_match(type%3A%20%22esco-occupation%22)%7B%0A%20%20%20%20%20%20preferred_label%0A%20%20%20%20%20%20id%0A%20%20%20%20%20%20definition%0A%20%20%20%20%7D%0A%20%20%20%20skills%3A%20related(type%3A%20%22skill%22)%7B%0A%20%20%20%20%20%20preferred_label%20%0A%20%20%20%20%7D%0A%20%20%20%20driving_license%3A%20related(type%3A%20%22driving-licence%22)%7B%0A%20%20%20%20%20%20preferred_label%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A"
     api_data = get_api(query)
@@ -85,6 +85,14 @@ def get_descriptions_skills(id):
                 description = "Ingen information tillgänglig"    
     for d in data["driving_license"]:
         skills.append(f"Körkort: {d['preferred_label']}\u2713")
+    digital = " \U0001F310"
+    green = " \U0001F331"
     for s in data["skills"]:
-        skills.append(f"{s['preferred_label']}\u2713") 
+        skill = s['preferred_label']
+        skill_marked = f"{skill}\u2713"
+        if skill in green_skills:
+            skill_marked = f"{skill_marked} {green}"
+        if skill in digital_skills:
+            skill_marked = f"{skill_marked} {digital}"
+        skills.append(skill_marked) 
     return description, skills
